@@ -7,9 +7,10 @@ describe('Index Test', () => {
     it('Index', function () {
         expect(true).to.equal(true);
     });
-    it('should Get /', async function () {
+    it('should Get /', async (done) => {
         const res = await request(app).get('/');
         expect(res.status).to.equal(200);
+        done();
     });
 });
 

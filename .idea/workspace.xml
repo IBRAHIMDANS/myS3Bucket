@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="83c8606c-ea34-496e-ae32-ba3e020a1b04" name="Default Changelist" comment="Merge branch 'master' of github.com:IBRAHIMDANS/myS3Bucket">
+    <list default="true" id="83c8606c-ea34-496e-ae32-ba3e020a1b04" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/babel.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/babel.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/main.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/main.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,7 +44,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Jest.Index Test">
+  <component name="RunManager" selected="Jest.Index Test.Index">
     <configuration name="Index Test" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -60,6 +55,20 @@
       <test-file value="$PROJECT_DIR$/tests/main.test.ts" />
       <test-names>
         <test-name value="Index Test" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Index Test.Index" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/tests/main.test.ts" />
+      <test-names>
+        <test-name value="Index Test" />
+        <test-name value="Index" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -104,27 +113,13 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name=":: helloWorld.hello" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/tests/main.test.ts" />
-      <test-names>
-        <test-name value=":: helloWorld" />
-        <test-name value="hello" />
-      </test-names>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Jest.Index Test" />
+        <item itemvalue="Jest.Index Test.Index" />
         <item itemvalue="Jest.Index Test.should Get /" />
+        <item itemvalue="Jest.Index Test" />
         <item itemvalue="Jest.:: helloWorld.fake test" />
         <item itemvalue="Jest.Sample Test" />
-        <item itemvalue="Jest.:: helloWorld.hello" />
       </list>
     </recent_temporary>
   </component>
@@ -138,7 +133,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1574063005280</updated>
-      <workItem from="1574063007890" duration="10243000" />
+      <workItem from="1574063007890" duration="10756000" />
     </task>
     <task id="LOCAL-00001" summary="Merge branch 'master' of github.com:IBRAHIMDANS/myS3Bucket">
       <created>1574071953642</created>
@@ -161,7 +156,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574072632095</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add test">
+      <created>1574078107149</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1574078107149</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,6 +182,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Merge branch 'master' of github.com:IBRAHIMDANS/myS3Bucket" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of github.com:IBRAHIMDANS/myS3Bucket" />
+    <MESSAGE value="add test" />
+    <option name="LAST_COMMIT_MESSAGE" value="add test" />
   </component>
 </project>
