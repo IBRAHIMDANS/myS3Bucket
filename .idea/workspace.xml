@@ -44,7 +44,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Jest.Index Test.Index">
+  <component name="RunManager" selected="Jest.Index Test">
     <configuration name="Index Test" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -115,9 +115,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Jest.Index Test" />
         <item itemvalue="Jest.Index Test.Index" />
         <item itemvalue="Jest.Index Test.should Get /" />
-        <item itemvalue="Jest.Index Test" />
         <item itemvalue="Jest.:: helloWorld.fake test" />
         <item itemvalue="Jest.Sample Test" />
       </list>
@@ -133,7 +133,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1574063005280</updated>
-      <workItem from="1574063007890" duration="10756000" />
+      <workItem from="1574063007890" duration="11062000" />
     </task>
     <task id="LOCAL-00001" summary="Merge branch 'master' of github.com:IBRAHIMDANS/myS3Bucket">
       <created>1574071953642</created>
@@ -184,5 +184,15 @@
     <MESSAGE value="Merge branch 'master' of github.com:IBRAHIMDANS/myS3Bucket" />
     <MESSAGE value="add test" />
     <option name="LAST_COMMIT_MESSAGE" value="add test" />
+  </component>
+  <component name="regexState">
+    <option name="map">
+      <map>
+        <entry key="flags" value="0" />
+        <entry key="mode" value="0" />
+        <entry key="regex" value="(19||20)\d\d([- /.])(0[1-9]||1[012])\2(0[1-9]||[12][0-9]||3[01])" />
+        <entry key="text" value="1900-01-01 2007/08/13 1900.01.01 1900 01 01 1900-01.01 1900 13 01 1900 02 31" />
+      </map>
+    </option>
   </component>
 </project>

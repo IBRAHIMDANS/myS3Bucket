@@ -4,8 +4,9 @@ import { expect } from 'chai';
 
 
 describe('Index Test', () => {
-    it('Index', function () {
+    it('Index', function (done) {
         expect(true).to.equal(true);
+        done()
     });
     it('should Get /', async (done) => {
         const res = await request(app).get('/');
