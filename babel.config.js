@@ -1,10 +1,13 @@
 module.exports = api => {
-    api.cache(true)
+    api.cache(true);
 
-    const presets = ['@babel/preset-env', '@babel/preset-typescript']
+    const presets = ['@babel/preset-env', '@babel/preset-typescript'];
 
     return {
         presets,
-        plugins: ['@babel/plugin-transform-runtime']
+        plugins: [
+            '@babel/plugin-transform-runtime',
+            '@babel/plugin-proposal-class-properties'
+        ]
     }
 }

@@ -5,10 +5,13 @@ dotenv.config();
 const app: express.Express = express();
 const port = process.env.PORT || 8080;
 
-app.get('/', (req, res) => {
+app.get('/', (req: express.Request, res: express.Response) => {
     res.json({
-        projettName: 'myS3',
-        author: ['Ibrahima Dansoko', 'Benjamin Benoit'],
+        'project Name': 'myS3',
+        author: [
+            'Ibrahima Dansoko',
+            'Benjamin Benoit'
+        ],
     });
 });
 const server: any = app.listen(port, () => {
