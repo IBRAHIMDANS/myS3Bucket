@@ -1,10 +1,14 @@
-export function helloWorld(lang = 'Typescript'): string {
-    return `🦁 I love ${lang}!`;
-}
+import express from "express";
+import * as dotenv from "dotenv";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function devNull(): any {
-    return { hello: 'Efrei' };
-}
+dotenv.config();
+const app = express();
+const port = process.env.PORT || 8080;
 
-console.log(helloWorld());
+app.get("/", (req, res) => {
+    res.send("Hello world!");
+});
+
+app.listen(port, () => {
+    console.log(`server started at http://localhost:${port}`);
+});
