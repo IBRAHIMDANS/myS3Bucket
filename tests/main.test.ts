@@ -8,10 +8,10 @@ describe('Index Test', () => {
         expect(true).to.equal(true);
 
     });
-    it('should Get /', async () => {
-        const res = await request(app).get('/');
-       await expect(res.status).to.equal(200);
-    });
+    // it('should Get /', async () => {
+    //     const res = await request(app).get('/');
+    //    await expect(res.status).to.equal(200);
+    // });
 });
 
 // describe('Test the root path', () => {
