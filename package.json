@@ -5,7 +5,7 @@
   "author": "Ibrahima DANSOKO <ibrahima.dansoko@outlook.com> ",
   "license": "MIT",
   "private": true,
-  "main": ".dist/main.js",
+  "main": "dist/main.js",
   "types": "types.d.ts",
   "scripts": {
     "test:static": "yarn tsc",
@@ -13,8 +13,8 @@
     "test": "yarn test:static && yarn test:unit",
     "lint": "yarn eslint src/*.ts* src/**/*.ts*",
     "dev": "yarn nodemon",
-    "build": "yarn babel src/ --out-dir .dist/ --extensions \".ts\" --source-maps inline --quiet --copy-files",
-    "clean": "yarn rimraf .dist"
+    "build": "yarn babel src/ --out-dir dist/ --extensions \".ts\" --source-maps inline --quiet --copy-files",
+    "clean": "yarn rimraf dist"
   },
   "husky": {
     "hooks": {
