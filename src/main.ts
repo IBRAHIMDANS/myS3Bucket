@@ -2,7 +2,7 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
-const app = express();
+const app: express.Express = express();
 const port = process.env.PORT || 8080;
 
 app.get('/', (req, res) => {
@@ -11,9 +11,8 @@ app.get('/', (req, res) => {
         author: ['Ibrahima Dansoko', 'Benjamin Benoit'],
     });
 });
-
-app.listen(port, () => {
+const server:any = app.listen(port, () => {
     console.log(`server started at http://localhost:${port}`);
 });
 
-export default app;
+export default server;
