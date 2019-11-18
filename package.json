@@ -1,9 +1,54 @@
 {
-  "name": "myS3",
+  "name": "myS3Bucket",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Simple app as Amazon S3",
+  "author": "Ibrahima DANSOKO <ibrahima.dansoko@outlook.com> ",
   "license": "MIT",
+  "private": true,
+  "main": ".dist/main.js",
+  "types": "types.d.ts",
+  "scripts": {
+    "test:static": "yarn tsc",
+    "test:unit": "yarn jest --config=.jestrc.js --maxWorkers 2",
+    "test": "yarn test:static && yarn test:unit",
+    "lint": "yarn eslint src/*.ts* src/**/*.ts*",
+    "dev": "yarn nodemon",
+    "build": "yarn babel src/ --out-dir .dist/ --extensions \".ts\" --source-maps inline --quiet --copy-files",
+    "clean": "yarn rimraf .dist"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn prettier --write \"src/*.ts\" \"src/**/*.ts*\"",
+      "pre-push": "yarn lint && yarn test"
+    }
+  },
+  "engines": {
+    "node": ">=12.7.x",
+    "yarn": ">=1.19.x"
+  },
+  "dependencies": {},
   "devDependencies": {
-    "typescript": "^3.7.2"
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-typescript": "^7.7.2",
+    "@mhirba/eslint-config-base": "^1.4.2",
+    "@types/chai": "^4.2.4",
+    "@types/jest": "^24.0.20",
+    "@types/node": "^12.11.7",
+    "@typescript-eslint/eslint-plugin": "^2.5.0",
+    "@typescript-eslint/parser": "^2.5.0",
+    "babel-jest": "^24.9.0",
+    "chai": "^4.2.0",
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-jest": "^22.20.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "husky": "^3.0.9",
+    "jest": "^24.9.0",
+    "nodemon": "^1.18.9",
+    "prettier": "^1.16.4",
+    "prettier-eslint": "^9.0.0"
   }
 }
