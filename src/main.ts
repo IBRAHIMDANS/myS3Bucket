@@ -1,12 +1,15 @@
-import express from "express";
-import * as dotenv from "dotenv";
+import express from 'express';
+import * as dotenv from 'dotenv';
 
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 8080;
 
-app.get("/", (req, res) => {
-    res.send("Hello world!");
+app.get('/', (req, res) => {
+    res.json({
+        projettName: 'myS3',
+        Author: ['Ibrahima Dansoko','Benjamin Benoit'],
+    });
 });
 
 app.listen(port, () => {
