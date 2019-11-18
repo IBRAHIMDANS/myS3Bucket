@@ -4,14 +4,13 @@ import { expect } from 'chai';
 
 
 describe('Index Test', () => {
-    it('Index', function (done) {
+    it('Index', function () {
         expect(true).to.equal(true);
-        done()
+
     });
-    it('should Get /', async (done) => {
+    it('should Get /', async () => {
         const res = await request(app).get('/');
-        expect(res.status).to.equal(200);
-        done();
+       await expect(res.status).to.equal(200);
     });
 });
 
