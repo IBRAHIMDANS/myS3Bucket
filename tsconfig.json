@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "target": "es6",
+    "module": "commonjs",
+    "lib": [
+      "dom",
+      "es2017"
+    ],
+    "paths": {
+      "*": [
+        "node_modules/*"
+      ]
+    },
+    "strict": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "declaration": false,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+    "forceConsistentCasingInFileNames": true
+  }
+
