@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
         author: ['Ibrahima Dansoko', 'Benjamin Benoit'],
     });
 });
-const server:any = app.listen(port, () => {
+const server: any = app.listen(port, () => {
     console.log(`server started at http://localhost:${port}`);
 });
 
