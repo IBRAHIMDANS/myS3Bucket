@@ -10,7 +10,7 @@
     "allowJs": false,
     "noEmit": true,
     "strict": true,
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "outDir": ".dist"
   },
