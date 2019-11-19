@@ -28,6 +28,7 @@
     ".eslintrc.js",
     ".jestrc.js",
     "babel.config.js",
-    "prettier.config.js"
+    "prettier.config.js",
+    "ormconfig.js"
   ]
 }
