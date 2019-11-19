@@ -20,7 +20,7 @@ createConnection()
         app.use(bodyParser.urlencoded({ extended: true }));
         app.use('/', route);
 
-        const port = process.env.PORT || 8080;
+        const port = process.env.APP_PORT || 8080;
         const server: any = app.listen(port, () => {
             console.log(`server started at http://localhost:${port}`);
         });

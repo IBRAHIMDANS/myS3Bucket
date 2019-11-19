@@ -7,7 +7,7 @@ RUN yarn install
 
 COPY . .
 
-RUN yarn test
+# RUN yarn test
 RUN yarn build
 
 #dev

@@ -1,17 +1,24 @@
-version: "3"
+version: "3.7"
 services:
-  Mysql:
-    image: mysql:8
+  Postgres:
+    image: postgres
+    restart: always
     ports:
-      - 3306:3306
+      - 5436:5432
     env_file:
       - .env
-
+  Adminer:
+    image: adminer
+    restart: always
+    links:
+      - Postgres:postgres
+    ports:
+      - 4444:8080
   mys3bucket:
     build: .
     ports:
       - 8080:8080
     links:
-      - Mysql:mysql
+      - Postgres:postgres
     env_file:
       - .env

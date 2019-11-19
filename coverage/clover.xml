@@ -1,16 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1574149953989" clover="3.2.0">
-  <project timestamp="1574149953989" name="All files">
-    <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2" elements="11" coveredelements="11" complexity="0" loc="7" ncloc="7" packages="1" files="1" classes="1"/>
-    <file name="main.ts" path="/Users/20171115/Desktop/myS3Bucket/src/main.ts">
-      <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
-      <line num="4" count="1" type="stmt"/>
-      <line num="5" count="1" type="stmt"/>
-      <line num="6" count="1" type="cond" truecount="2" falsecount="0"/>
-      <line num="8" count="1" type="stmt"/>
-      <line num="9" count="1" type="stmt"/>
-      <line num="14" count="1" type="stmt"/>
-      <line num="15" count="1" type="stmt"/>
-    </file>
+<coverage generated="1574178612638" clover="3.2.0">
+  <project timestamp="1574178612639" name="All files">
+    <metrics statements="38" coveredstatements="12" conditionals="2" coveredconditionals="0" methods="13" coveredmethods="0" elements="53" coveredelements="12" complexity="0" loc="38" ncloc="38" packages="5" files="6" classes="6"/>
+    <package name="src">
+      <metrics statements="11" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="0"/>
+      <file name="main.ts" path="/Users/admin/Documents/Projets_Ecole/myS3Bucket/src/main.ts">
+        <metrics statements="11" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="0"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="23" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.controller">
+      <metrics statements="19" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="0"/>
+      <file name="UserController.ts" path="/Users/admin/Documents/Projets_Ecole/myS3Bucket/src/controller/UserController.ts">
+        <metrics statements="19" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="0"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.entity">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="User.ts" path="/Users/admin/Documents/Projets_Ecole/myS3Bucket/src/entity/User.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="src.middlewares">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="passport.ts" path="/Users/admin/Documents/Projets_Ecole/myS3Bucket/src/middlewares/passport.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="src.routes">
+      <metrics statements="8" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="index.ts" path="/Users/admin/Documents/Projets_Ecole/myS3Bucket/src/routes/index.ts">
+        <metrics statements="4" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+      </file>
+      <file name="userRoutes.ts" path="/Users/admin/Documents/Projets_Ecole/myS3Bucket/src/routes/userRoutes.ts">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+      </file>
+    </package>
   </project>
 </coverage>

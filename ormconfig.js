@@ -1,10 +1,11 @@
-{
-   "type": "postgres",
-   "host": "localhost",
-   "port": 5432,
-   "username": "20171115",
-   "password": "root",
-   "database": "mys3",
+
+module.exports = {
+   "type": process.env.BDD_type,
+   "host": process.env.POSTGRES_HOST,
+   "port": process.env.POSTGRES_PORT,
+   "username": process.env.POSTGRES_USER,
+   "password": process.env.POSTGRES_PASSWORD,
+   "database": process.env.POSTGRES_DB,
    "synchronize": true,
    "logging": false,
    "entities": [
