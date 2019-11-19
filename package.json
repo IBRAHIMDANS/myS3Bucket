@@ -24,7 +24,7 @@
    "dependencies": {
       "body-parser": "^1.18.1",
       "express": "^4.15.4",
-      "mysql": "^2.14.1",
+      "pg": "^7.12.1",
       "reflect-metadata": "^0.1.13",
       "typeorm": "0.2.20"
    },
