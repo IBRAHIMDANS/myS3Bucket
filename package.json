@@ -17,12 +17,6 @@
       "clean": "yarn rimraf dist",
       "start": "ts-node src/main.ts"
    },
-   "husky": {
-      "hooks": {
-         "pre-commit": "yarn prettier --write \"src/*.ts\" \"src/**/*.ts*\"",
-         "pre-push": "yarn lint && yarn test"
-      }
-   },
    "engines": {
       "node": ">=12.7.x",
       "yarn": ">=1.19.x"

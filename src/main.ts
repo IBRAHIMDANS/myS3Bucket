@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import * as Express from 'express';
+import Express from 'express';
 import { config } from 'dotenv';
 import { createConnection } from 'typeorm';
 import * as bodyParser from 'body-parser';
@@ -10,7 +10,8 @@ import { User } from './entity/User';
 config();
 createConnection()
     .then(async connection => {
-        const app: Express.Express = express();
+        const app: Express.Express = Express();
+
         app.use(bodyParser.json());
         const port = process.env.PORT || 8080;
 
@@ -28,7 +29,7 @@ createConnection()
                 (req: Request, res: Response, next: Function) => {
                     const result = new (route.controller as any)()[
                         route.action
-                    ](req, res, next);
+                        ](req, res, next);
                     if (result instanceof Promise) {
                         result.then(result =>
                             result !== null && result !== undefined

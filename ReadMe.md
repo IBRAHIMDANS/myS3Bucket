@@ -13,3 +13,10 @@ sujet => <a href="https://mys3.mhirba.now.sh/#5"> mys3 </a>
 ## <a name='credits'>Credits</a>
 
 Craft with :heart: by **Ibrahima DANSOKO
+
+//   "husky": {
+////      "hooks": {
+////         "pre-commit": "yarn prettier --write \"src/*.ts\" \"src/**/*.ts*\"",
+////         "pre-push": "yarn lint && yarn test"
+////      }
+//   },
