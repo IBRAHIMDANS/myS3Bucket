@@ -5,12 +5,12 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number | undefined;
 
-    @Column()
+    @Column('text')
     firstName: string | undefined;
 
-    @Column()
+    @Column('text')
     lastName: string | undefined;
 
-    @Column()
+    @Column('int')
     age: number | undefined;
 }
