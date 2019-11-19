@@ -1,0 +1,17 @@
+version: "3"
+services:
+  Mysql:
+    image: mysql:8
+    ports:
+      - 3306:3306
+  env_file:
+    - .env
+
+  mys3bucket:
+    build: .
+    ports:
+      - 8080:8080
+    links:
+      - Mysql:mysql
+    env_file:
+      - .env

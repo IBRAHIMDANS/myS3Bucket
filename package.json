@@ -32,6 +32,7 @@
     "@babel/core": "^7.6.4",
     "@babel/node": "^7.6.3",
     "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/plugin-proposal-class-properties": "^7.7.0",
     "@babel/preset-env": "^7.7.1",
     "@babel/preset-typescript": "^7.7.2",
     "@babel/runtime": "^7.7.2",
@@ -70,6 +71,8 @@
     "prettier": "^1.16.4",
     "prettier-eslint": "^9.0.0",
     "supertest": "^4.0.2",
-    "typeorm": "^0.2.20"
+    "typeorm": "^0.2.20",
+    "express-validator": "^6.2.0",
+    "uuid": "^3.3.3"
   }
 }
