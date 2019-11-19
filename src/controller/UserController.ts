@@ -1,26 +1,44 @@
-import { getRepository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 import { NextFunction, Request, Response } from 'express';
 import { User } from '../entity/User';
 
 export class UserController {
-    private userRepository = getRepository(User);
 
-    async all(request: Request, response: Response, next: NextFunction) {
-        return this.userRepository.find();
-    }
+    static all = async (request: Request, response: Response, next: NextFunction) => {
+        const userRepository: Repository<User> = getRepository(User);
+        await userRepository.find().then(result => {
+            return response.json(result);
+        });
 
-    async one(request: Request, response: Response, next: NextFunction) {
-        return this.userRepository.findOne(request.params.id);
-    }
+    };
+    static one = async (request: Request, response: Response, next: NextFunction) => {
+        const userRepository: Repository<User> = getRepository(User);
+        await userRepository.findOne(request.params.id).then(result => {
+            response.json(result);
+        });
+    };
+    static post = async (request: Request, response: Response, next: NextFunction) => {
+        const userRepository: Repository<User> = getRepository(User);
+        console.log(req.body);
+        const { nickname, email, password } = req.body;
+        await userRepository.save({
+            nickname,
+            email,
+            password
+        }).then(result => {
+            return response.json(result);
+        }).catch(error => {
+            console.log(error);
+            return response.status(500).json({ 'error': request.statusCode, 'message': error.message });
+        });
+    };
 
-    async save(request: Request, response: Response, next: NextFunction) {
-        return this.userRepository.save(request.body);
-    }
 
-    async remove(request: Request, response: Response, next: NextFunction) {
-        const userToRemove: any = await this.userRepository.findOne(
-            request.params.id,
-        );
-        await this.userRepository.remove(userToRemove);
-    }
+    //     // async remove(request: Request, response: Response, next: NextFunction) {
+    //     //     const userToRemove: any = await this.userRepository.findOne(
+    //     //         request.params.id,
+    //     //     );
+    //     //     await this.userRepository.remove(userToRemove);
+    //     // }
+
 }

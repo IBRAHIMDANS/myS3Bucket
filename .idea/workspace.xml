@@ -3,9 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="83c8606c-ea34-496e-ae32-ba3e020a1b04" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/UserController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/UserController.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/entity/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/User.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/userRoutes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/userRoutes.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
