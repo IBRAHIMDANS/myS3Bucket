@@ -1,5 +1,5 @@
 import express from 'express';
-import {config} from 'dotenv';
+import { config } from 'dotenv';
 
 config();
 const app: express.Express = express();
