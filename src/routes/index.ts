@@ -10,4 +10,5 @@ api.get('/', (req: Express.Request, res: Express.Response) => {
         author: ['Ibrahima Dansoko', 'Benjamin Benoit'],
     });
 });
+
 export default api;
