@@ -38,7 +38,7 @@ createConnection()
         //         },
         //     );
         // });
-        // // insert new users for test
+        // insert new users for test
         // await connection.manager.save(
         //     connection.manager.create(User, {
         //         firstName: 'Timber',
