@@ -5,7 +5,7 @@ const api = Router();
 
 
 api.get('/', UserController.all);
-api.get('/', UserController.one);
+api.get('/:id', UserController.one);
 api.post('/', UserController.post);
 
 export default api;

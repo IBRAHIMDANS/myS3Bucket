@@ -3,8 +3,10 @@ import Express from 'express';
 import { config } from 'dotenv';
 import { createConnection } from 'typeorm';
 import * as bodyParser from 'body-parser';
-import  route from './routes';
-
+import route from './routes';
+// import helmet from 'helmet';
+// import cors from 'cors';
+import cacheControl from 'express-cache-controller';
 
 config();
 createConnection()
@@ -12,6 +14,9 @@ createConnection()
         const app: Express.Express = Express();
 
         app.use(bodyParser.json());
+        // app.use(helmet());
+        // app.use(cors());
+        app.use(cacheControl({ noCache: true }));
         app.use(bodyParser.urlencoded({ extended: true }));
         app.use('/', route);
 
