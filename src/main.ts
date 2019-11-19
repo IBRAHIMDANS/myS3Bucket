@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import * as express from 'express';
+import * as Express from 'express';
 import { config } from 'dotenv';
 import { createConnection } from 'typeorm';
 import * as bodyParser from 'body-parser';
@@ -10,11 +10,11 @@ import { User } from './entity/User';
 config();
 createConnection()
     .then(async connection => {
-        const app: express.Express = express();
+        const app: Express.Express = express();
         app.use(bodyParser.json());
         const port = process.env.PORT || 8080;
 
-        app.get('/', (req: express.Request, res: express.Response) => {
+        app.get('/', (req: Express.Request, res: Express.Response) => {
             res.json({
                 'project Name': 'myS3',
                 author: ['Ibrahima Dansoko', 'Benjamin Benoit'],
