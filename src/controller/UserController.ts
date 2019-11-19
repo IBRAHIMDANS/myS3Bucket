@@ -7,7 +7,10 @@ export class UserController {
     static all = async (request: Request, response: Response, next: NextFunction) => {
         const userRepository: Repository<User> = getRepository(User);
         await userRepository.find().then(result => {
+            console.log(result)
             return response.json(result);
+        }).catch(error => {
+            return response.status(500).json(error)
         });
 
     };
