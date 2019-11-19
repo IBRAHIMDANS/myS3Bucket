@@ -110,8 +110,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.docker-compose.yml.Mysql: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.Mysql: Compose Deployment" />
         <item itemvalue="Docker.Dockerfile" />
         <item itemvalue="Jest.Index Test.should Get /" />
         <item itemvalue="npm.test:unit" />
@@ -125,7 +125,7 @@
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@61f7a475" type="9fbbdea:ServiceModel$ServiceNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@4c5708da" type="9fbbdea:ServiceModel$ServiceNode" />
             </path>
           </expand>
           <select />
