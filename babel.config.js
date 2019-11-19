@@ -7,7 +7,8 @@ module.exports = api => {
         presets,
         plugins: [
             '@babel/plugin-transform-runtime',
-            '@babel/plugin-proposal-class-properties'
+            '@babel/plugin-proposal-class-properties',
+            "@babel/plugin-proposal-decorators", {"legacy": true}
         ]
     }
 }
