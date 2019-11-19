@@ -6,12 +6,18 @@
     "lib": [
       "esnext",
       "dom"
+//    ,
+//      "es5",
+//      "es6"
     ],
     "allowJs": false,
     "noEmit": true,
     "strict": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
     "outDir": "dist"
   },
   "include": [

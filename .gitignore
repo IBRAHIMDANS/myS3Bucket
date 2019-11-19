@@ -1,35 +1,6 @@
-## .gitignore generated with love for Mhirba
-
-##
-# NODE
-##
-
-# Modules dependencies
-node_modules/
-
-# Package manager stuff
-yarn-debug.log*
-yarn-error.log*
-
-package-lock.json
-yarn.lock
-
-# Environment
-.env
-
-# Logs
-*.log
-
-# Testing
-coverage/
-
-##
-# GENERATED
-##
-# by us
-.dist
-
-# by others
-.vscode/
-.DS_Store
 .idea/
+.vscode/
+node_modules/
+build/
+tmp/
+temp/
