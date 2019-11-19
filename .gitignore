@@ -32,3 +32,4 @@ coverage/
 # by others
 .vscode/
 .DS_Store
+.idea/
