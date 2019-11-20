@@ -12,36 +12,26 @@ export class UserController {
         await userRepository
             .find()
             .then(result => {
-                console.log(result);
+                //  console.log(result);
+                return response.json(result).status(200);
+            })
+            .catch(error => response.status(500).json(error));
+    };
+    static one = async (request: Request, response: Response) => {
+        const userRepository: Repository<User> = getRepository(User);
+        await userRepository
+            .findOne(request.params.id)
+            .then(result => {
                 return response.json(result).status(200);
             })
             .catch(error => {
                 return response.status(500).json(error);
             });
     };
-    static one = async (
-        request: Request,
-        response: Response,
-        next: NextFunction,
-    ) => {
-        const userRepository: Repository<User> = getRepository(User);
-        await userRepository
-            .findOne(request.params.id)
-            .then(result => {
-                return response
-                    .json(result)
-                    .status(200);
-            })
-            .catch(error => {
-                return response
-                    .status(500)
-                    .json(error);
-            });
-    };
     static post = async (
         request: Request,
         response: Response,
-        next: NextFunction,
+        //  next: NextFunction,
     ) => {
         const userRepository: Repository<User> = getRepository(User);
         console.log(request.body);
@@ -53,18 +43,14 @@ export class UserController {
                 password,
             })
             .then(result => {
-                return response
-                    .json(result)
-                    .status(200);
+                return response.json(result).status(200);
             })
             .catch(error => {
-                console.log(error);
-                return response
-                    .status(500)
-                    .json({
-                        error: request.statusCode,
-                        message: error.message,
-                    });
+                // console.log(error);
+                return response.status(500).json({
+                    error: request.statusCode,
+                    message: error.message,
+                });
             });
     };
 
