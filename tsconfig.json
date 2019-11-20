@@ -5,10 +5,8 @@
     "module": "commonjs",
     "lib": [
       "esnext",
-      "dom"
-//    ,
-//      "es5",
-//      "es6"
+      "dom",
+      "es6"
     ],
     "allowJs": false,
     "noEmit": true,
