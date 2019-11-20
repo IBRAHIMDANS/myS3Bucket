@@ -4,7 +4,7 @@ import config from '../config/config';
 // https://medium.com/javascript-in-plain-english/creating-a-rest-api-with-jwt-authentication-and-role-based-authorization-using-typescript-fbfa3cab22a4
 export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
     //Get the jwt token from the head
-    const token = <string>req.headers['auth'];
+    const token = req.headers['auth'] as string;
     let jwtPayload;
 
     //Try to validate the token and get data
@@ -20,7 +20,7 @@ export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
     //The token is valid for 1 hour
     //We want to send a new token on every request
 
-    const { email, nickname } = jwtPayload;
+    const { email, nickname }: any = jwtPayload;
     const newToken = jwt.sign({ email, nickname }, config.jwtSecret, {
         expiresIn: '1h',
     });
