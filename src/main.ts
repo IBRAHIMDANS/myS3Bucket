@@ -10,23 +10,23 @@ import cacheControl from 'express-cache-controller';
 import * as http from 'http';
 
 config();
-
-const app: Express.Express = Express();
-const port = process.env.APP_PORT || 8080;
 export let server: http.Server;
 
-createConnection()
-    .then(async () => {
-        app.use(bodyParser.json());
-        // app.use(helmet()); not working typescript
-        app.use(cors());
-        app.use(cacheControl({ noCache: true }));
-        app.use(bodyParser.urlencoded({ extended: true }));
-        app.use('/', route);
-        server = app.listen(port, () => {
-            console.log(`server started at http://localhost:${port}`);
-        });
-    })
-    .catch(error => console.log(error));
-
-export default app;
+async function bootstrap() {
+    const app: Express.Express = Express();
+    const port = process.env.APP_PORT || 8080;
+    createConnection()
+        .then(async () => {
+            app.use(bodyParser.json());
+            // app.use(helmet()); not working typescript
+            app.use(cors());
+            app.use(cacheControl({ noCache: true }));
+            app.use(bodyParser.urlencoded({ extended: true }));
+            app.use('/', route);
+            server = app.listen(port, () => {
+                console.log(`server started at http://localhost:${port}`);
+            });
+        })
+        .catch(error => console.log(error));
+}
+bootstrap();
