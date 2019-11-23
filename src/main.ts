@@ -12,7 +12,7 @@ import * as http from 'http';
 config();
 export let server: http.Server;
 
-async function bootstrap() {
+async function bootstrap(): Promise<any> {
     const app: Express.Express = Express();
     const port = process.env.APP_PORT || 8080;
     createConnection()

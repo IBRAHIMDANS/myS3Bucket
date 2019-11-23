@@ -1,10 +1,7 @@
 module.exports = api => {
     api.cache(true);
 
-    const presets = [
-        ['@babel/preset-env'],
-        '@babel/preset-typescript'
-    ];
+    const presets = [['@babel/preset-env'], '@babel/preset-typescript'];
 
     return {
         presets,
@@ -17,6 +14,6 @@ module.exports = api => {
                 },
             ],
             '@babel/plugin-proposal-class-properties',
-        ]
-    }
-}
+        ],
+    };
+};

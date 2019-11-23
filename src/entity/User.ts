@@ -5,7 +5,7 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
-import { IsDate, IsEmail, Length } from 'class-validator';
+import { IsDate, IsEmail, IsString, Length } from 'class-validator';
 
 @Entity()
 export class User {
@@ -14,6 +14,7 @@ export class User {
 
     @Column('text', { nullable: true })
     @Length(4, 20)
+    @IsString()
     nickname?: string;
 
     @Column('text', { nullable: true, unique: true })
@@ -22,6 +23,7 @@ export class User {
 
     @Column('text')
     @Length(4, 100)
+    @IsString()
     password?: string;
 
     @CreateDateColumn({ type: 'timestamp' })
