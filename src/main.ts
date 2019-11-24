@@ -22,7 +22,7 @@ async function bootstrap(): Promise<any> {
             app.use(cors());
             app.use(cacheControl({ noCache: true }));
             app.use(bodyParser.urlencoded({ extended: true }));
-            app.use('/', route);
+            app.use('/api', route);
             server = app.listen(port, () => {
                 console.log(`server started at http://localhost:${port}`);
             });

@@ -1,13 +1,18 @@
 import {
+    BeforeInsert,
     Column,
     CreateDateColumn,
     Entity,
+    EventSubscriber,
+    InsertEvent,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
 import { IsDate, IsEmail, IsString, Length } from 'class-validator';
+import * as bcrypt from 'bcryptjs';
 
 @Entity()
+@EventSubscriber()
 export class User {
     @PrimaryGeneratedColumn('uuid')
     uuid?: string;
@@ -33,4 +38,10 @@ export class User {
     @UpdateDateColumn({ type: 'timestamp' })
     @IsDate()
     updatedAt?: Date;
+
+    @BeforeInsert()
+    hashPassword(): string {
+        return (this.password = bcrypt.hashSync(this.password as string, 8));
+        // bcrypt.hashSync(this.password as string, 8);
+    }
 }
