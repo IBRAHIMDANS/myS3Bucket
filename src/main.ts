@@ -24,7 +24,7 @@ async function bootstrap(): Promise<any> {
             app.use(bodyParser.urlencoded({ extended: true }));
             app.use('/api', route);
             server = app.listen(port, () => {
-                console.log(`server started at http://localhost:${port}`);
+                console.log(`server started at http://localhost:${port}/api`);
             });
         })
         .catch(error => console.log(error));

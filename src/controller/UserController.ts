@@ -43,12 +43,13 @@ export class UserController {
         const userRepository: Repository<User> = getRepository(User);
         const { nickname, email, password } = request.body;
         console.log(request.body);
+        const user = new User();
+        user.nickname = nickname;
+        user.email = email;
+        user.password = password;
+        user.hashPassword();
         await userRepository
-            .save({
-                nickname,
-                email,
-                password,
-            })
+            .save(user)
             .then(result => response.json(result).status(200))
             .catch(error => {
                 return response.status(500).json({

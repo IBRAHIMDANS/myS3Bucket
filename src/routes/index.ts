@@ -22,7 +22,8 @@ api.get('/', (req: Express.Request, res: Express.Response) => {
                     method: 'Get',
                     url: 'http://localhost:8080/api/auth/changePassword',
                     protected: 'No',
-                }],
+                },
+            ],
             Users: [
                 {
                     name: 'Get All User',
