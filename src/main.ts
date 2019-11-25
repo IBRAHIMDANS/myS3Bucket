@@ -8,6 +8,7 @@ import route from './routes';
 import cors from 'cors';
 import cacheControl from 'express-cache-controller';
 import * as http from 'http';
+import passport from 'passport';
 
 config();
 export let server: http.Server;
@@ -20,6 +21,7 @@ async function bootstrap(): Promise<any> {
             app.use(bodyParser.json());
             // app.use(helmet()); not working typescript
             app.use(cors());
+            app.use(passport.initialize());
             app.use(cacheControl({ noCache: true }));
             app.use(bodyParser.urlencoded({ extended: true }));
             app.use('/api', route);

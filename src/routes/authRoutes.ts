@@ -1,9 +1,10 @@
-import { UserController } from '../controller/UserController';
 import { Router } from 'express';
-
+import { AuthController } from '../controller/AuthController';
+import passport from '../middlewares/passport';
 const api = Router();
 
-api.get('/login', UserController.all);
-api.post('/change-password', UserController.one);
+api.post('/login', AuthController.login);
+
+api.get('/changePassword', AuthController.login);
 
 export default api;

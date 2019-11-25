@@ -1,6 +1,9 @@
 import { getRepository, Repository } from 'typeorm';
 import { Request, Response } from 'express';
 import { User } from '../entity/User';
+import jwt from 'jsonwebtoken';
+import config from '../config/config';
+import { sendMailForRegister } from './MailController';
 
 export class UserController {
     private static userRepository: Repository<User>;
@@ -13,9 +16,9 @@ export class UserController {
     static all = async (
         request: Request,
         response: Response,
-    ): Promise<void> => {
+    ): Promise<Response> => {
         const userRepository: Repository<User> = getRepository(User);
-        await userRepository
+        return await userRepository
             .find()
             .then(result => response.json(result).status(200))
             .catch(error => response.status(500).json(error));
@@ -24,9 +27,9 @@ export class UserController {
     static one = async (
         request: Request,
         response: Response,
-    ): Promise<void> => {
+    ): Promise<Response> => {
         const userRepository: Repository<User> = getRepository(User);
-        await userRepository
+        return await userRepository
             .findOne(request.params.id)
             .then(result => {
                 return response.json(result).status(200);
@@ -39,18 +42,32 @@ export class UserController {
     static post = async (
         request: Request,
         response: Response,
-    ): Promise<void> => {
+    ): Promise<Response> => {
         const userRepository: Repository<User> = getRepository(User);
         const { nickname, email, password } = request.body;
-        console.log(request.body);
         const user = new User();
         user.nickname = nickname;
         user.email = email;
         user.password = password;
         user.hashPassword();
-        await userRepository
+        const token = jwt.sign(
+            {
+                nickname,
+                email,
+            },
+            config.jwtSecret,
+        );
+        return await userRepository
             .save(user)
-            .then(result => response.json(result).status(200))
+            .then(async () => {
+                return await sendMailForRegister(user)
+                    .then(() => {
+                        return response.json({ meta: token }).status(200);
+                    })
+                    .catch((err: Error) => {
+                        return response.json({ err }).status(500);
+                    });
+            })
             .catch(error => {
                 return response.status(500).json({
                     error: request.statusCode,
@@ -63,15 +80,15 @@ export class UserController {
     static deleteUser = async (
         request: Request,
         response: Response,
-    ): Promise<void> => {
+    ): Promise<Response> => {
         const userRepository: Repository<User> = getRepository(User);
         const user = await userRepository.findOne({ uuid: request.params.id });
-        await userRepository
+        return await userRepository
             .remove(user as User)
-            .then((result: any) => {
+            .then((result: User) => {
                 return response.json(result).status(200);
             })
-            .catch((err: any) => {
+            .catch((err: Error) => {
                 return response.status(500).json(err);
             });
     };
@@ -80,10 +97,10 @@ export class UserController {
     static update = async (
         request: Request,
         response: Response,
-    ): Promise<void> => {
+    ): Promise<Response> => {
         const userRepository: Repository<User> = getRepository(User);
         const { nickname, email } = request.body;
-        await userRepository
+        return await userRepository
             .createQueryBuilder()
             .update(User)
             .set({
@@ -93,11 +110,9 @@ export class UserController {
             .where({ uuid: request.params.id })
             .execute()
             .then(result => {
-                console.log(result);
                 return response.status(200).json(result);
             })
             .catch(err => {
-                console.log(err);
                 return response.status(500).json(err);
             });
     };
