@@ -54,7 +54,7 @@ passport.use(
                         return next(false, result);
                     })
                     .catch(() => {
-                        return next('User  doesn\'t exist');
+                        return next("User  doesn't exist");
                     });
             } catch (error) {
                 return next(error.message);

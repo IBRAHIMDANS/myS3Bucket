@@ -46,10 +46,4 @@ export class User {
     checkPassword(password: string): boolean {
         return bcrypt.compareSync(password, this.password);
     }
-
-    // toJSON() {
-    //     const values = Object.assign({}, this.get());
-    //     delete values.password;
-    //     return values;
-    // }
 }

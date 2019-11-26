@@ -34,4 +34,11 @@ export class AuthController {
             },
         )(request, response);
     };
+
+    static checkPassword = async (
+        request: Request,
+        response: Response,
+    ): Promise<null> => {
+        return null;
+    };
 }
