@@ -4,7 +4,6 @@ import {
     CreateDateColumn,
     Entity,
     EventSubscriber,
-    InsertEvent,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
@@ -40,13 +39,14 @@ export class User {
     updatedAt!: Date;
 
     @BeforeInsert()
-    hashPassword(): string {
-        return (this.password = bcrypt.hashSync(this.password as string, 8));
+    hashPassword(salt = 5): string {
+        return bcrypt.hashSync(this.password, salt);
     }
 
     checkPassword(password: string): boolean {
-        return bcrypt.compareSync(this.password as string, password);
+        return bcrypt.compareSync(password, this.password);
     }
+
     // toJSON() {
     //     const values = Object.assign({}, this.get());
     //     delete values.password;

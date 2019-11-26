@@ -49,7 +49,7 @@ export class UserController {
         user.nickname = nickname;
         user.email = email;
         user.password = password;
-        user.hashPassword();
+        user.password = user.hashPassword();
         const token = jwt.sign(
             {
                 nickname,

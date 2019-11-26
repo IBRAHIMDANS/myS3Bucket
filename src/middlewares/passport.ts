@@ -19,16 +19,12 @@ passport.use(
                 })
                 .then((result: User | undefined) => {
                     if (result !== undefined) {
-                        // console.log('yes', result);
-                        // if (!result.checkPassword(password)) {
-                        //     return next('password is incorrect', undefined);
-                        // }
+                        if (!result.checkPassword(password)) {
+                            return next('password is incorrect', undefined);
+                        }
                         return next(false, result);
                     } else {
-                        return next(
-                            'Email or password is incorrect',
-                            undefined,
-                        );
+                        return next("Email  doesn't exist", undefined);
                     }
                 })
                 .catch((error: Error) => {
