@@ -2,6 +2,7 @@ import Express, { Router } from 'express';
 // import { UserRoutes } from './userRoutes';
 import user from './userRoutes';
 import auth from './authRoutes';
+import { UserController } from '../controller/UserController';
 
 const api = Router();
 
@@ -22,6 +23,12 @@ api.get('/', (req: Express.Request, res: Express.Response) => {
                     method: 'Get',
                     url: 'http://localhost:8080/api/auth/changePassword',
                     protected: 'No',
+                },
+                {
+                    name: 'reset password',
+                    method: 'Post',
+                    url: 'http://localhost:8080/api/users/resetPassword',
+                    protected: 'Yes',
                 },
             ],
             Users: [
@@ -56,11 +63,13 @@ api.get('/', (req: Express.Request, res: Express.Response) => {
                     protected: 'Yes',
                 },
             ],
+            Bucket: [],
             Blob: [],
         },
     }).end();
 });
 api.use('/users', user);
 api.use('/auth', auth);
+api.get('/truncate', UserController.truncate);
 
 export default api;

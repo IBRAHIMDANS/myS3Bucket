@@ -25,7 +25,7 @@ export class User {
     @IsEmail()
     email!: string;
 
-    @Column('text')
+    @Column('text', { select: false })
     @Length(4, 100)
     @IsString()
     password!: string;

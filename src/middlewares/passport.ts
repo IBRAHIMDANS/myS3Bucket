@@ -13,22 +13,20 @@ passport.use(
             passwordField: 'password',
         },
         async (email: string, password: string, next: Function) => {
+            console.log(typeof password);
             return await getRepository(User)
-                .findOne({
+                .findOneOrFail({
+                    select: ['uuid', 'nickname', 'email', 'password'],
                     where: { email },
                 })
-                .then((result: User | undefined) => {
-                    if (result !== undefined) {
-                        if (!result.checkPassword(password)) {
-                            return next('password is incorrect', undefined);
-                        }
-                        return next(false, result);
-                    } else {
-                        return next("Email  doesn't exist", undefined);
+                .then((result: User) => {
+                    if (!result.checkPassword(password)) {
+                        return next('password is incorrect', undefined);
                     }
+                    return next(undefined, result);
                 })
-                .catch((error: Error) => {
-                    return next(error);
+                .catch(() => {
+                    return next(`email not in bdd`, undefined);
                 });
         },
     ),
@@ -42,23 +40,19 @@ passport.use(
             secretOrKey: config.jwtSecret,
         },
         async (jwtPayload, next: Function) => {
-            try {
-                await getRepository(User)
-                    .findOne({
-                        where: {
-                            uuid: jwtPayload.uuid,
-                            email: jwtPayload.email,
-                        },
-                    })
-                    .then(result => {
-                        return next(false, result);
-                    })
-                    .catch(() => {
-                        return next("User  doesn't exist");
-                    });
-            } catch (error) {
-                return next(error.message);
-            }
+            await getRepository(User)
+                .findOneOrFail({
+                    where: {
+                        uuid: jwtPayload.uuid,
+                        email: jwtPayload.email,
+                    },
+                })
+                .then(result => {
+                    return next(undefined, result);
+                })
+                .catch(() => {
+                    return next("User  doesn't exist", undefined);
+                });
         },
     ),
 );

@@ -93,7 +93,6 @@ export class UserController {
             });
     };
     // Verifier afta
-    // Get Update by id
     static update = async (
         request: Request,
         response: Response,
@@ -109,6 +108,64 @@ export class UserController {
             })
             .where({ uuid: request.params.id })
             .execute()
+            .then(result => {
+                return response.status(200).json(result);
+            })
+            .catch(err => {
+                return response.status(500).json(err);
+            });
+    };
+    // Post reset password user
+    static resetPassword = async (
+        request: Request,
+        response: Response,
+    ): Promise<any> => {
+        const userRepository: Repository<User> = getRepository(User);
+        console.log(request.user);
+        const { password, passwordConfirm } = request.body;
+        if (password === passwordConfirm) {
+            const user = new User();
+            user.password = password;
+            user.password = user.hashPassword();
+
+            await userRepository
+                .createQueryBuilder()
+                .update(User)
+                .set({
+                    password: user.password,
+                })
+                .where({
+                    uuid: request.user?.uuid ,
+                })
+                .execute()
+                .then(result => {
+                    console.log(result);
+                    // const token = jwt.sign(
+                    //     { uuid: request.params.id, nickname : request.user.nickname, email: request.user.email },
+                    //     config.jwtSecret,
+                    //     { expiresIn: '1h' },
+                    // );
+                    return response.status(200).json(result);
+                })
+                .catch((err: Error) => {
+                    return response.status(500).json(err);
+                });
+        } else {
+            return response
+                .status(500)
+                .json({ error: 'password don\'t match with passwordConfirm' });
+        }
+    };
+
+    // truncate user for dev
+    static truncate = async (
+        request: Request,
+        response: Response,
+    ): Promise<Response> => {
+        const userRepository: Repository<User> = getRepository(User);
+        const { nickname, email } = request.body;
+        return await userRepository
+            .clear()
             .then(result => {
                 return response.status(200).json(result);
             })

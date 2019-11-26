@@ -28,6 +28,7 @@
     }
   },
   "dependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.7.4",
     "@types/bcryptjs": "^2.4.2",
     "@types/body-parser": "^1.17.1",
     "@types/cors": "^2.8.6",

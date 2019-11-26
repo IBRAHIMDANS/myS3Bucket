@@ -13,8 +13,8 @@ export async function sendMailForRegister(user: User) {
             },
         })
         .sendMail({
-            from: process.env.MAILTRAP_EMAIL,
-            to: user.email,
+            from: user.email,
+            to: process.env.MAILTRAP_EMAIL,
             subject: 'Bienvenue',
             text: 'Mys3',
             html: `<p> Hello ${user.nickname} bienvenue sur myS3</p>`,
