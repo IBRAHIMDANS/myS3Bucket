@@ -135,7 +135,8 @@ export class UserController {
                     password: user.password,
                 })
                 .where({
-                    uuid: request.user?.uuid ,
+                    // @ts-ignore
+                    uuid: request.user.uuid,
                 })
                 .execute()
                 .then(result => {
@@ -153,7 +154,7 @@ export class UserController {
         } else {
             return response
                 .status(500)
-                .json({ error: 'password don\'t match with passwordConfirm' });
+                .json({ error: "password don't match with passwordConfirm" });
         }
     };
 
