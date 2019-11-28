@@ -4,6 +4,7 @@ import { User } from '../entity/User';
 import jwt from 'jsonwebtoken';
 import config from '../config/config';
 import { sendMailForRegister } from './MailController';
+import { RequestCustom } from '../interfaces/Request';
 
 export class UserController {
     private static userRepository: Repository<User>;
@@ -117,7 +118,7 @@ export class UserController {
     };
     // Post reset password user
     static resetPassword = async (
-        request: Request,
+        request: RequestCustom,
         response: Response,
     ): Promise<any> => {
         const userRepository: Repository<User> = getRepository(User);
@@ -127,7 +128,7 @@ export class UserController {
             const user = new User();
             user.password = password;
             user.password = user.hashPassword();
-
+            const uuid = request.user.uuid;
             await userRepository
                 .createQueryBuilder()
                 .update(User)
@@ -135,8 +136,7 @@ export class UserController {
                     password: user.password,
                 })
                 .where({
-                    // @ts-ignore
-                    uuid: request.user.uuid,
+                    uuid,
                 })
                 .execute()
                 .then(result => {
