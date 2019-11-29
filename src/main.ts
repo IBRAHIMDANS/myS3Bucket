@@ -8,25 +8,27 @@ import route from './routes';
 import cors from 'cors';
 import cacheControl from 'express-cache-controller';
 import * as http from 'http';
+import passport from 'passport';
 
 config();
-
-const app: Express.Express = Express();
-const port = process.env.APP_PORT || 8080;
 export let server: http.Server;
 
-createConnection()
-    .then(async () => {
-        app.use(bodyParser.json());
-        // app.use(helmet()); not working typescript
-        app.use(cors());
-        app.use(cacheControl({ noCache: true }));
-        app.use(bodyParser.urlencoded({ extended: true }));
-        app.use('/', route);
-        server = app.listen(port, () => {
-            console.log(`server started at http://localhost:${port}`);
-        });
-    })
-    .catch(error => console.log(error));
-
-export default app;
+async function bootstrap(): Promise<any> {
+    const app: Express.Express = Express();
+    const port = process.env.APP_PORT || 8080;
+    createConnection()
+        .then(async () => {
+            app.use(bodyParser.json());
+            // app.use(helmet()); not working typescript
+            app.use(cors());
+            app.use(passport.initialize());
+            app.use(cacheControl({ noCache: true }));
+            app.use(bodyParser.urlencoded({ extended: true }));
+            app.use('/api', route);
+            server = app.listen(port, () => {
+                console.log(`server started at http://localhost:${port}/api`);
+            });
+        })
+        .catch(error => console.log(error));
+}
+bootstrap();

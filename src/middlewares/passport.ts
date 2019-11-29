@@ -1,31 +1,59 @@
-import { NextFunction, Request, Response } from 'express';
-import * as jwt from 'jsonwebtoken';
 import config from '../config/config';
-// https://medium.com/javascript-in-plain-english/creating-a-rest-api-with-jwt-authentication-and-role-based-authorization-using-typescript-fbfa3cab22a4
-export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
-    //Get the jwt token from the head
-    const token = req.headers['auth'] as string;
-    let jwtPayload;
+import passport from 'passport';
+import { Strategy as LocalStrategy } from 'passport-local';
+import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
+import { User } from '../entity/User';
+import { getRepository } from 'typeorm';
 
-    //Try to validate the token and get data
-    try {
-        jwtPayload = jwt.verify(token, config.jwtSecret);
-        res.locals.jwtPayload = jwtPayload;
-    } catch (error) {
-        //If token is not valid, respond with 401 (unauthorized)
-        res.status(401).send();
-        return;
-    }
+passport.use(
+    'locale',
+    new LocalStrategy(
+        {
+            usernameField: 'email',
+            passwordField: 'password',
+        },
+        async (email: string, password: string, next: Function) => {
+            console.log(typeof password);
+            return await getRepository(User)
+                .findOneOrFail({
+                    select: ['uuid', 'nickname', 'email', 'password'],
+                    where: { email },
+                })
+                .then((result: User) => {
+                    if (!result.checkPassword(password)) {
+                        return next('password is incorrect', undefined);
+                    }
+                    return next(undefined, result);
+                })
+                .catch(() => {
+                    return next(`email not in bdd`, undefined);
+                });
+        },
+    ),
+);
 
-    //The token is valid for 1 hour
-    //We want to send a new token on every request
-    //change any  afta
-    const { email, nickname }: any = jwtPayload;
-    const newToken = jwt.sign({ email, nickname }, config.jwtSecret, {
-        expiresIn: '1h',
-    });
-    res.setHeader('token', newToken);
-
-    //Call the next middleware or controller
-    next();
-};
+passport.use(
+    'JwtStrategy',
+    new JwtStrategy(
+        {
+            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+            secretOrKey: config.jwtSecret,
+        },
+        async (jwtPayload, next: Function) => {
+            await getRepository(User)
+                .findOneOrFail({
+                    where: {
+                        uuid: jwtPayload.uuid,
+                        email: jwtPayload.email,
+                    },
+                })
+                .then(result => {
+                    return next(undefined, result);
+                })
+                .catch(() => {
+                    return next("User  doesn't exist", undefined);
+                });
+        },
+    ),
+);
+export default passport;
