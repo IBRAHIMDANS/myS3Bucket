@@ -118,35 +118,37 @@ export class UserController {
     };
     // Post reset password user
     static resetPassword = async (
-        request: RequestCustom,
+        request: Request,
         response: Response,
-    ): Promise<any> => {
+    ): Promise<Response> => {
         const userRepository: Repository<User> = getRepository(User);
-        console.log(request.user);
         const { password, passwordConfirm } = request.body;
         if (password === passwordConfirm) {
-            const user = new User();
-            user.password = password;
-            user.password = user.hashPassword();
-            const uuid = request.user.uuid;
-            await userRepository
+            const userTemps = new User();
+            userTemps.password = password;
+            userTemps.password = userTemps.hashPassword();
+            const { user } = request as RequestCustom;
+            return await userRepository
                 .createQueryBuilder()
                 .update(User)
                 .set({
-                    password: user.password,
+                    password: userTemps.password,
                 })
                 .where({
-                    uuid,
+                    uuid: user.uuid,
                 })
                 .execute()
-                .then(result => {
-                    console.log(result);
-                    // const token = jwt.sign(
-                    //     { uuid: request.params.id, nickname : request.user.nickname, email: request.user.email },
-                    //     config.jwtSecret,
-                    //     { expiresIn: '1h' },
-                    // );
-                    return response.status(200).json(result);
+                .then(() => {
+                    const token = jwt.sign(
+                        {
+                            uuid: user.uuid,
+                            nickname: user.nickname,
+                            email: user.email,
+                        },
+                        config.jwtSecret,
+                        { expiresIn: '1h' },
+                    );
+                    return response.status(200).json({ meta: token });
                 })
                 .catch((err: Error) => {
                     return response.status(500).json(err);

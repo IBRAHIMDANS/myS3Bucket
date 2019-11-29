@@ -4,6 +4,7 @@ import { User } from '../entity/User';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
 import config from '../config/config';
+import { resetPassword } from './MailController';
 
 export class AuthController {
     private static userRepository: Repository<User>;
@@ -39,6 +40,22 @@ export class AuthController {
         request: Request,
         response: Response,
     ): Promise<null> => {
+        const { email } = request.body;
+        await getRepository(User)
+            .findOneOrFail({ email })
+            .then(async (user: User) => {
+                await resetPassword(user)
+                    .then(result => {
+                        console.log(result);
+                    })
+                    .catch((error: Error) => {
+                        console.log(error);
+                    });
+            })
+            .catch((error: Error) => {
+                console.log(error);
+                return response.status(404).json('email not in bdd');
+            });
         return null;
     };
 }
