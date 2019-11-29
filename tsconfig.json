@@ -5,14 +5,18 @@
     "module": "commonjs",
     "lib": [
       "esnext",
-      "dom"
+      "dom",
+      "es6"
     ],
     "allowJs": false,
     "noEmit": true,
     "strict": true,
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "outDir": ".dist"
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "outDir": "dist"
   },
   "include": [
     "src",
@@ -22,6 +26,7 @@
     ".eslintrc.js",
     ".jestrc.js",
     "babel.config.js",
-    "prettier.config.js"
+    "prettier.config.js",
+    "ormconfig"
   ]
 }

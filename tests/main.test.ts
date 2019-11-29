@@ -1,14 +1,21 @@
-import { helloWorld, devNull } from '../src/main'
-import { expect } from 'chai'
+// import * as server from '../src/main';
+import { expect } from 'chai';
+//import { agent as request } from 'supertest';
 
-describe(':: helloWorld', (): void => {
-  it('helloWorld("Elixir")', () => {
-    expect(helloWorld('Elixir')).equal(`🦁 I love Elixir!`)
-  })
-})
-
-describe(':: devNull', (): void => {
-  it('devNull()', () => {
-    expect(devNull()).eql({ hello: 'Efrei' })
-  })
-})
+describe('Index Test', () => {
+    it('Index', function() {
+        expect(true).to.equal(true);
+    });
+    // it('should Get /', async done => {
+    //     //console.log(done);
+    //     const res = await request(server).get('/');
+    //     await expect(res.status).to.equal(200);
+    //
+    //     done();
+    // });
+});
+//
+// beforeEach(() => {
+//     console.log(server);
+//     return server.close();
+// });
