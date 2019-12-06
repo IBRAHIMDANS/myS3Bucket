@@ -3,6 +3,7 @@ import * as app from '../src/main';
 import { expect } from 'chai';
 import { Connection, createConnection } from 'typeorm';
 import { agent as request } from 'supertest';
+import supertest from 'supertest';
 
 const server = supertest(app);
 
