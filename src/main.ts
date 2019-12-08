@@ -10,16 +10,11 @@ import cacheControl from 'express-cache-controller';
 import * as http from 'http';
 import passport from 'passport';
 
-export async function close() {
-
-}
-
-
 config();
 export let server: http.Server;
 
-const app: Express.Express = Express();
-const port = process.env.APP_PORT || 8080;
+export const app: Express.Express = Express();
+export const port = process.env.APP_PORT || 8080;
 createConnection()
     .then(async () => {
         app.use(bodyParser.json());
@@ -32,6 +27,5 @@ createConnection()
         server = app.listen(port, () => {
             console.log(`server started at http://localhost:${port}/api`);
         });
-        
     })
     .catch(error => console.log(error));
