@@ -6,6 +6,7 @@ import { sendMail } from './MailController';
 import { RequestCustom } from '../interfaces/Request';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
+import config from '../config/config';
 
 export class UserController {
     private static userRepository: Repository<User>;
@@ -57,7 +58,7 @@ export class UserController {
                 nickname,
                 email,
             },
-            process.env.jwtSecret as string,
+            config.jwtSecret,
         );
         return await userRepository
             .save(user)
@@ -170,7 +171,7 @@ export class UserController {
                             nickname: user.nickname,
                             email: user.email,
                         },
-                        process.env.jwtSecret as string,
+                        config.jwtSecret,
                         { expiresIn: '1h' },
                     );
                     return response.status(200).json({ meta: token });

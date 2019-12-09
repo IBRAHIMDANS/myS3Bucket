@@ -4,6 +4,7 @@ import { User } from '../entity/User';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
 import { sendMail } from './MailController';
+import config from '../config/config';
 
 export class AuthController {
     private static userRepository: Repository<User>;
@@ -27,7 +28,7 @@ export class AuthController {
                 const { uuid, email, nickname } = await user;
                 const token = jwt.sign(
                     { uuid, email, nickname },
-                    process.env.jwtSecret as string,
+                    config.jwtSecret,
                     { expiresIn: '1h' },
                 );
                 return response.json({ meta: token }).status(200);

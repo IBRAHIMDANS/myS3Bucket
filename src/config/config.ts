@@ -1,3 +1,6 @@
+import { config } from 'dotenv';
+config();
+
 export default {
-    jwtSecret: 'Br@ms',
+    jwtSecret: `${process.env.jwtSecret as string}`,
 };
