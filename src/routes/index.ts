@@ -19,14 +19,20 @@ api.get('/', (req: Express.Request, res: Express.Response) => {
                     protected: 'No',
                 },
                 {
-                    name: 'change Password',
+                    name: 'check user for change password',
                     method: 'Post',
-                    url: 'http://localhost:8080/api/auth/changePassword',
+                    url: 'http://localhost:8080/api/auth/checkPassword',
+                    protected: 'No',
+                },
+                {
+                    name: 'change password',
+                    method: 'Put',
+                    url: 'http://localhost:8080/api/auth/changePassword/:id',
                     protected: 'No',
                 },
                 {
                     name: 'reset password',
-                    method: 'Post',
+                    method: 'Put',
                     url: 'http://localhost:8080/api/users/resetPassword',
                     protected: 'Yes',
                 },

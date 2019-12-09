@@ -5,6 +5,7 @@ import passport from 'passport';
 import jwt from 'jsonwebtoken';
 import { sendMail } from './MailController';
 import config from '../config/config';
+import { toLower } from 'lodash';
 
 export class AuthController {
     private static userRepository: Repository<User>;
@@ -39,27 +40,45 @@ export class AuthController {
     static checkPassword = async (
         request: Request,
         response: Response,
-    ): Promise<null> => {
-        const { email } = request.body;
-        await getRepository(User)
+    ): Promise<Response> => {
+        let { email } = request.body;
+        email = toLower(email);
+        return await getRepository(User)
             .findOneOrFail({ email })
             .then(async (user: User) => {
-                await sendMail(
+                const token = jwt.sign(
+                    { uuid: user.uuid, email: user.email },
+                    config.jwtSecret,
+                    { expiresIn: '1h' },
+                );
+                return await sendMail(
                     user,
                     'Modification de votre mot de passe',
-                    `<p>Hello ${user.nickname}, pour modifier votre mot de passe veuiller cliquer sur le lien </p> `,
+                    `
+<p>Hello ${user.nickname}, pour modifier votre mot de passe veuiller cliquer sur le lien </p>
+<a type="button" href="http://localhost:4200/api/auth/changePassword/${token}">Click  </a>
+ `,
                 )
-                    .then(result => {
-                        console.log(result);
+                    .then(() => {
+                        return response
+                            .json({ status: 'true', meta: { token } })
+                            .status(200);
                     })
                     .catch((error: Error) => {
-                        console.log(error);
+                        return response
+                            .json({ message: 'email invalid  ', error })
+                            .status(500);
                     });
             })
-            .catch((error: Error) => {
-                console.log(error);
+            .catch(() => {
                 return response.status(404).json('email not in bdd');
             });
-        return null;
+    };
+
+    static ChangePassword = async (
+        request: Request,
+        response: Response,
+    ): Promise<void> => {
+        console.log(request.params.id);
     };
 }

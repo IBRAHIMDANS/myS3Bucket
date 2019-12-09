@@ -6,6 +6,8 @@ const api = Router();
 
 api.post('/login', AuthController.login);
 
-api.post('/changePassword', AuthController.checkPassword);
+api.post('/checkPassword', AuthController.checkPassword);
+
+api.put('/changePassword/:id', AuthController.ChangePassword);
 
 export default api;
