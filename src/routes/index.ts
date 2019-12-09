@@ -62,6 +62,13 @@ api.get('/', (req: Express.Request, res: Express.Response) => {
                     url: 'http://localhost:8080/api/users/${id}',
                     protected: 'Yes',
                 },
+                {
+                    name: 'Truncate user in bdd',
+                    method: 'Delete',
+                    warning: 'DEV only',
+                    url: 'http://localhost:8080/api/users/truncate',
+                    protected: 'No',
+                },
             ],
             Bucket: [],
             Blob: [],

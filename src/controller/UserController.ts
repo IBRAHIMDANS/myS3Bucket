@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import { sendMail } from './MailController';
 import { RequestCustom } from '../interfaces/Request';
 import * as fs from 'fs';
+import * as rimraf from 'rimraf';
 
 export class UserController {
     private static userRepository: Repository<User>;
@@ -100,6 +101,20 @@ export class UserController {
         return await userRepository
             .remove(user as User)
             .then((result: User) => {
+                if (fs.existsSync(`${process.env.MYS3Storage}`)) {
+                    if (
+                        fs.existsSync(
+                            `${process.env.MYS3Storage}/${request.params.id}`,
+                        )
+                    ) {
+                        rimraf.sync(
+                            `${process.env.MYS3Storage}/${request.params.id}`,
+                            () => {
+                                console.log('user folder as deleted');
+                            },
+                        );
+                    }
+                }
                 return response.json(result).status(200);
             })
             .catch((err: Error) => {
@@ -183,6 +198,13 @@ export class UserController {
         return await userRepository
             .clear()
             .then(result => {
+                if (fs.existsSync(`${process.env.MYS3Storage}`)) {
+                    if (fs.existsSync(`${process.env.MYS3Storage}`)) {
+                        rimraf.sync(`${process.env.MYS3Storage}`, () => {
+                            console.log('user folder as deleted');
+                        });
+                    }
+                }
                 return response.status(200).json(result);
             })
             .catch(err => {
