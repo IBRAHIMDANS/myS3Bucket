@@ -61,9 +61,13 @@ export class UserController {
         return await userRepository
             .save(user)
             .then(async () => {
-                if (fs.existsSync('./data')) {
-                    if (!fs.existsSync(`./data/${user.uuid}`)) {
-                        fs.mkdirSync(`./data/${user.uuid}`);
+                if (fs.existsSync(`${process.env.MYS3Storage}`)) {
+                    if (
+                        !fs.existsSync(
+                            `${process.env.MYS3Storage}/${user.uuid}`,
+                        )
+                    ) {
+                        fs.mkdirSync(`${process.env.MYS3Storage}/${user.uuid}`);
                     }
                 }
                 return await sendMail(

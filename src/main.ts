@@ -17,7 +17,7 @@ export let server: http.Server;
 
 export const app: Express.Express = Express();
 export const port = process.env.APP_PORT || 8080;
-const MYS3DATADIR = './data';
+const MYS3DATADIR = `${process.env.MYS3Storage}`;
 if (!fs.existsSync(MYS3DATADIR)) {
     fs.mkdirSync(MYS3DATADIR);
 }
