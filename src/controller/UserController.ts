@@ -191,7 +191,6 @@ export class UserController {
         response: Response,
     ): Promise<Response> => {
         const userRepository: Repository<User> = getRepository(User);
-        const { nickname, email } = request.body;
         return await userRepository
             .clear()
             .then(result => {

@@ -6,7 +6,7 @@ export default (req: Request, res: Response, next: Function) => {
         const token = req.headers.authorization.slice(7);
         jwt.verify(
             token,
-            process.env.jwtSecret as string,
+            `${process.env.jwtSecret}`,
             (err: Error, decoded: any) => {
                 if (err)
                     return res.status(500).send({
