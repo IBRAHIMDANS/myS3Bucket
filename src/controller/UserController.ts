@@ -109,9 +109,6 @@ export class UserController {
                     ) {
                         rimraf.sync(
                             `${process.env.MYS3Storage}/${request.params.id}`,
-                            () => {
-                                console.log('user folder as deleted');
-                            },
                         );
                     }
                 }
