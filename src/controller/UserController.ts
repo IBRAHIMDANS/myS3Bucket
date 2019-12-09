@@ -197,9 +197,7 @@ export class UserController {
             .then(result => {
                 if (fs.existsSync(`${process.env.MYS3Storage}`)) {
                     if (fs.existsSync(`${process.env.MYS3Storage}`)) {
-                        rimraf.sync(`${process.env.MYS3Storage}`, () => {
-                            console.log('user folder as deleted');
-                        });
+                        rimraf.sync(`${process.env.MYS3Storage}`);
                     }
                 }
                 return response.status(200).json(result);
