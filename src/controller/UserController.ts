@@ -2,9 +2,9 @@ import { getRepository, Repository } from 'typeorm';
 import { Request, Response } from 'express';
 import { User } from '../entity/User';
 import jwt from 'jsonwebtoken';
-import config from '../config/config';
-import { sendMailForRegister } from './MailController';
+import { sendMail } from './MailController';
 import { RequestCustom } from '../interfaces/Request';
+import * as fs from 'fs';
 
 export class UserController {
     private static userRepository: Repository<User>;
@@ -56,12 +56,21 @@ export class UserController {
                 nickname,
                 email,
             },
-            config.jwtSecret,
+            process.env.jwtSecret as string,
         );
         return await userRepository
             .save(user)
             .then(async () => {
-                return await sendMailForRegister(user)
+                if (fs.existsSync('./data')) {
+                    if (!fs.existsSync(`./data/${user.uuid}`)) {
+                        fs.mkdirSync(`./data/${user.uuid}`);
+                    }
+                }
+                return await sendMail(
+                    user,
+                    'Bienvenue',
+                    `<p>Hello ${user.nickname} bienvenue sur mys3</p>`,
+                )
                     .then(() => {
                         return response.json({ meta: token }).status(200);
                     })
@@ -145,7 +154,7 @@ export class UserController {
                             nickname: user.nickname,
                             email: user.email,
                         },
-                        config.jwtSecret,
+                        process.env.jwtSecret as string,
                         { expiresIn: '1h' },
                     );
                     return response.status(200).json({ meta: token });

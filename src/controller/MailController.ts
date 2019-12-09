@@ -1,49 +1,27 @@
 import * as nodemailler from 'nodemailer';
 import { User } from '../entity/User';
 
-export async function sendMailForRegister(user: User): Promise<boolean> {
+export async function sendMail(
+    user: User,
+    subject?: string,
+    html?: string,
+): Promise<boolean> {
     // const account = await nodemailler.createTestAccount();
     return nodemailler
         .createTransport({
-            host: 'smtp.mailtrap.io',
+            service: 'gmail',
             port: 2525,
             auth: {
-                user: process.env.MAILTRAP_USER,
-                pass: process.env.MAILTRAP_PASSWORD,
+                user: process.env.GMAIL_USER,
+                pass: process.env.GMAIL_PASSWORD,
             },
         })
         .sendMail({
-            from: user.email,
-            to: process.env.MAILTRAP_EMAIL,
-            subject: 'Bienvenue',
+            from: process.env.GMAIL_EMAIL,
+            to: user.email,
+            subject,
             text: 'Mys3',
-            html: `<p> Hello ${user.nickname} bienvenue sur myS3</p>`,
-        })
-        .then(() => {
-            return true;
-        })
-        .catch(() => {
-            return false;
-        });
-}
-
-export async function resetPassword(user: User): Promise<boolean> {
-    // const account = await nodemailler.createTestAccount();
-    return nodemailler
-        .createTransport({
-            host: 'smtp.mailtrap.io',
-            port: 2525,
-            auth: {
-                user: process.env.MAILTRAP_USER,
-                pass: process.env.MAILTRAP_PASSWORD,
-            },
-        })
-        .sendMail({
-            from: user.email,
-            to: process.env.MAILTRAP_EMAIL,
-            subject: 'reset mail',
-            text: 'reset Mail',
-            html: `<p> Hello ${user.nickname} bienvenue sur myS3</p>`,
+            html,
         })
         .then(() => {
             return true;

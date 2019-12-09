@@ -1,4 +1,3 @@
-import config from '../config/config';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
@@ -37,7 +36,7 @@ passport.use(
     new JwtStrategy(
         {
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-            secretOrKey: config.jwtSecret,
+            secretOrKey: `${process.env.jwtSecret}`,
         },
         async (jwtPayload, next: Function) => {
             await getRepository(User)

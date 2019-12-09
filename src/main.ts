@@ -4,17 +4,23 @@ import { config } from 'dotenv';
 import { createConnection } from 'typeorm';
 import * as bodyParser from 'body-parser';
 import route from './routes';
-// import * as helmet from 'helmet';
 import cors from 'cors';
 import cacheControl from 'express-cache-controller';
 import * as http from 'http';
 import passport from 'passport';
+import * as fs from 'fs';
+import { log } from 'util';
+// import * as helmet from 'helmet';
 
 config();
 export let server: http.Server;
 
 export const app: Express.Express = Express();
 export const port = process.env.APP_PORT || 8080;
+const MYS3DATADIR = './data';
+if (!fs.existsSync(MYS3DATADIR)) {
+    fs.mkdirSync(MYS3DATADIR);
+}
 createConnection()
     .then(async () => {
         app.use(bodyParser.json());
