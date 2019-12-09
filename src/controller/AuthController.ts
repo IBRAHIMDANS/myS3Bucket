@@ -3,8 +3,7 @@ import { Request, Response } from 'express';
 import { User } from '../entity/User';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
-import config from '../config/config';
-import { resetPassword } from './MailController';
+import { sendMail } from './MailController';
 
 export class AuthController {
     private static userRepository: Repository<User>;
@@ -28,7 +27,7 @@ export class AuthController {
                 const { uuid, email, nickname } = await user;
                 const token = jwt.sign(
                     { uuid, email, nickname },
-                    config.jwtSecret,
+                    process.env.jwtSecret as string,
                     { expiresIn: '1h' },
                 );
                 return response.json({ meta: token }).status(200);
@@ -44,7 +43,11 @@ export class AuthController {
         await getRepository(User)
             .findOneOrFail({ email })
             .then(async (user: User) => {
-                await resetPassword(user)
+                await sendMail(
+                    user,
+                    'Modification de votre mot de passe',
+                    `<p>Hello ${user.nickname}, pour modifier votre mot de passe veuiller cliquer sur le lien </p> `,
+                )
                     .then(result => {
                         console.log(result);
                     })
