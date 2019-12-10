@@ -2,9 +2,8 @@ import { getRepository, Repository } from 'typeorm';
 import { Request, Response } from 'express';
 import { Bucket } from '../entity/Bucket';
 import jwt from 'jsonwebtoken';
-import { sendMail } from './MailController';
-import * as fs from 'fs';
 import config from '../config/config';
+import { User } from '../entity/User';
 
 export class BucketController {
     private static BucketRepository: Repository<Bucket>;
@@ -40,7 +39,31 @@ export class BucketController {
             });
     };
     // Get Post user
-    static post = async (request: Request, response: Response) => {};
+    static post = async (
+        request: Request,
+        response: Response,
+    ): Promise<Response> => {
+        console.log(request)
+        const bucketRepository: Repository<Bucket> = getRepository(Bucket);
+        const { name } = request.body;
+        const bucket = new Bucket();
+        bucket.name = name;
+        await getRepository(User)
+            .findOne('4928b140-5319-4fb0-89f2-6538fa570585')
+            .then(user => {
+                bucket.user = user;
+            });
+        const token = jwt.sign(
+            {
+                name,
+                user: bucket.user,
+            },
+            config.jwtSecret,
+        );
+        return await bucketRepository.save(bucket).then(() => {
+            return response.status(200).json({ bucket, meta: { token } });
+        });
+    };
     // verifier afta
     // Get Delete by user
     static deleteBucket = async (request: Request, response: Response) => {};
