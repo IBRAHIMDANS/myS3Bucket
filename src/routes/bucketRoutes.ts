@@ -11,5 +11,11 @@ api.post(
     verifyToken,
     BucketController.post,
 );
+api.patch(
+    '/',
+    passport.authenticate('JwtStrategy', { session: false }),
+    verifyToken,
+    BucketController.update,
+);
 
 export default api;

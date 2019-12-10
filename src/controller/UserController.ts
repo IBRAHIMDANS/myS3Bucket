@@ -2,11 +2,15 @@ import { getRepository, Repository } from 'typeorm';
 import { Request, Response } from 'express';
 import { User } from '../entity/User';
 import jwt from 'jsonwebtoken';
-import { sendMail } from './MailController';
+import { sendMail } from '../lib/Mailer';
 import { RequestCustom } from '../interfaces/Request';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
 import config from '../config/config';
+import {
+    createDirectoryAction,
+    removeDirectoryAction,
+} from '../lib/FileSystem';
 
 export class UserController {
     private static userRepository: Repository<User>;
@@ -63,15 +67,7 @@ export class UserController {
         return await userRepository
             .save(user)
             .then(async () => {
-                if (fs.existsSync(`${process.env.MYS3Storage}`)) {
-                    if (
-                        !fs.existsSync(
-                            `${process.env.MYS3Storage}/${user.uuid}`,
-                        )
-                    ) {
-                        fs.mkdirSync(`${process.env.MYS3Storage}/${user.uuid}`);
-                    }
-                }
+                createDirectoryAction(`${user.uuid}`);
                 return await sendMail(
                     user,
                     'Bienvenue',
@@ -102,17 +98,7 @@ export class UserController {
         return await userRepository
             .remove(user as User)
             .then((result: User) => {
-                if (fs.existsSync(`${process.env.MYS3Storage}`)) {
-                    if (
-                        fs.existsSync(
-                            `${process.env.MYS3Storage}/${request.params.id}`,
-                        )
-                    ) {
-                        rimraf.sync(
-                            `${process.env.MYS3Storage}/${request.params.id}`,
-                        );
-                    }
-                }
+                removeDirectoryAction(`${request.params.id}`);
                 return response.json(result).status(200);
             })
             .catch((err: Error) => {

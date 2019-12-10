@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { User } from '../entity/User';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
-import { sendMail } from './MailController';
+import { sendMail } from '../lib/Mailer';
 import config from '../config/config';
 import { toLower } from 'lodash';
 

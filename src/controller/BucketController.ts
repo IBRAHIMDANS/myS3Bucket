@@ -3,6 +3,8 @@ import { Request, Response } from 'express';
 import { Bucket } from '../entity/Bucket';
 import jwt from 'jsonwebtoken';
 import config from '../config/config';
+import { createDirectoryAction } from '../lib/FileSystem';
+import { RequestCustom } from '../interfaces/Request';
 
 export class BucketController {
     private static BucketRepository: Repository<Bucket>;
@@ -22,22 +24,7 @@ export class BucketController {
             .then(result => response.json(result).status(200))
             .catch(error => response.status(500).json(error));
     };
-    // Get user by id
-    static one = async (
-        request: Request,
-        response: Response,
-    ): Promise<Response> => {
-        const userRepository: Repository<Bucket> = getRepository(Bucket);
-        return await userRepository
-            .findOne(request.params.id)
-            .then(result => {
-                return response.json(result).status(200);
-            })
-            .catch(error => {
-                return response.status(500).json(error);
-            });
-    };
-    // Get Post user
+    // Get Post bucket
     static post = async (
         request: Request,
         response: Response,
@@ -46,6 +33,9 @@ export class BucketController {
         const { name } = request.body;
         const bucket = new Bucket();
         bucket.name = name;
+        createDirectoryAction(
+            `${(request as RequestCustom).user.uuid}/${bucket.name}`,
+        );
         const token = jwt.sign(
             {
                 name,
