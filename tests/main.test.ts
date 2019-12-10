@@ -6,15 +6,14 @@ const server: supertest.SuperTest<supertest.Test> = supertest(app);
 let connection: Connection;
 let port: import('http').Server;
 
-beforeEach(async done => {
-    // Step 01: Drop database
+beforeAll(async done => {
     port = app.listen(8082);
     connection = await createConnection('Test');
     await connection.dropDatabase();
     done();
 });
 
-afterEach(async done => {
+afterAll(async done => {
     await port.close();
     await connection.close();
     return done();

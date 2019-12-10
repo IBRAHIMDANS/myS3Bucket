@@ -9,7 +9,7 @@
   "types": "types.d.ts",
   "scripts": {
     "test:static": "yarn tsc",
-    "test:unit": "yarn jest --config=.jestrc.js --maxWorkers 2 --detectOpenHandles",
+    "test:unit": "yarn jest --config=.jestrc.js --maxWorkers 2 --detectOpenHandles --forceExit",
     "test": "yarn test:static && yarn test:unit",
     "lint": "yarn eslint src/*.ts* src/**/*.ts*",
     "dev": "yarn nodemon",
@@ -17,6 +17,12 @@
     "clean": "yarn rimraf dist",
     "start": "ts-node src/main.ts"
   },
+     "husky": {
+        "hooks": {
+           "pre-commit": "yarn prettier --write \"src/*.ts\" \"src/**/*.ts*\"",
+           "pre-push": "yarn lint && yarn test"
+        }
+     },
   "engines": {
     "node": ">=12.7.x",
     "yarn": ">=1.19.x"
