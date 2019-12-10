@@ -31,8 +31,13 @@ export class BlobController {
             },
             config.jwtSecret,
         );
-        return await blobRepository.save(blob).then(() => {
-            return response.status(200).json({ blob, meta: { token } });
-        });
+        return await blobRepository
+            .save(blob)
+            .then(() => {
+                return response.status(200).json({ blob, meta: { token } });
+            })
+            .catch(err => {
+                return response.status(500).json({ err });
+            });
     };
 }
