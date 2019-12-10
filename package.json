@@ -9,7 +9,7 @@
   "types": "types.d.ts",
   "scripts": {
     "test:static": "yarn tsc",
-    "test:unit": "yarn jest --config=.jestrc.js --maxWorkers 2 --detectOpenHandles --forceExit",
+    "test:unit": "yarn jest --config=.jestrc.js --maxWorkers 2 --detectOpenHandles --forceExit --coverage --no-cache ",
     "test": "yarn test:static && yarn test:unit",
     "lint": "yarn eslint src/*.ts* src/**/*.ts*",
     "dev": "yarn nodemon",
