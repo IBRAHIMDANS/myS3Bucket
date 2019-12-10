@@ -40,4 +40,18 @@ jobs:
           yarn test
         env:
           CI: true
-        env_file: ./.env.model
+          APP_PORT: 8080
+          jwtSecret: Br@ms
+          BDD_type: postgres
+          POSTGRES_USER: ibrahima
+          POSTGRES_PASSWORD: ibrahima
+          POSTGRES_HOST: localhost
+          POSTGRES_DB: myS3
+          POSTGRES_PORT: 5432
+          POSTGRES_TEST_USER: ibrahima
+          POSTGRES_TEST_PASSWORD: ibrahima
+          POSTGRES_TEST_HOST: localhost
+          POSTGRES_TEST_DB: myS3Test
+          POSTGRES_TEST_PORT: 5432
+          GMAIL_USER: mys3bucket@gmail.com
+          GMAIL_PASSWORD: NiCalBon2019
