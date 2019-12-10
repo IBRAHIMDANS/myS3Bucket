@@ -43,9 +43,14 @@ export class BucketController {
             },
             config.jwtSecret,
         );
-        return await bucketRepository.save(bucket).then(() => {
-            return response.status(200).json({ bucket, meta: { token } });
-        });
+        return await bucketRepository
+            .save(bucket)
+            .then(() => {
+                return response.status(200).json({ bucket, meta: { token } });
+            })
+            .catch(err => {
+                return response.status(500).json({ err });
+            });
     };
     // verifier afta
     // Get Delete by user
