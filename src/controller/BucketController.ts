@@ -33,6 +33,7 @@ export class BucketController {
         const { name } = request.body;
         const bucket = new Bucket();
         bucket.name = name;
+        bucket.user = (request as RequestCustom).user;
         createDirectoryAction(
             `${(request as RequestCustom).user.uuid}/${bucket.name}`,
         );
