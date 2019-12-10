@@ -15,10 +15,10 @@ export class Blob extends BaseEntity {
     @PrimaryGeneratedColumn()
     id!: string;
 
-    @Column('text', { nullable: true })
-    @Length(4, 20)
-    @IsString()
-    nickname!: string;
+    // @Column('text', { nullable: true })
+    // @Length(4, 20)
+    // @IsString()
+    // nickname!: string;
 
     @Column('text')
     name!: string;
