@@ -9,6 +9,17 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x]
+    services:
+      postgres:
+        image : postges:latest
+        env:
+          POSTGRES_USER=ibrahima
+          POSTGRES_PASSWORD=ibrahima
+          POSTGRES_HOST=localhost
+          POSTGRES_DB=myS3
+          POSTGRES_PORT=5432
+        port:
+          5432:5432
 
     steps:
       - uses: actions/checkout@v1
@@ -22,3 +33,5 @@ jobs:
           yarn test
         env:
           CI: true
+        env_file:
+          - .env.model
