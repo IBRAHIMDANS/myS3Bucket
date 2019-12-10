@@ -13,7 +13,7 @@ import { Bucket } from './Bucket';
 @Entity()
 export class Blob extends BaseEntity {
     @PrimaryGeneratedColumn()
-    id!: string;
+    id!: number;
 
     // @Column('text', { nullable: true })
     // @Length(4, 20)

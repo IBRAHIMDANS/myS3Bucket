@@ -57,6 +57,9 @@ export class BucketController {
     // Get Delete by user
     // Verifier afta
     static update = async (request: Request, response: Response) => {
+        const bucketRepository: Repository<Bucket> = getRepository(Bucket);
+        const { name } = request.body;
+        bucketRepository.find()
         return null;
     };
     // Post reset password user
