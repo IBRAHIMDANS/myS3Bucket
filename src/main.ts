@@ -9,7 +9,6 @@ import cacheControl from 'express-cache-controller';
 import * as http from 'http';
 import passport from 'passport';
 import * as fs from 'fs';
-import { log } from 'util';
 // import * as helmet from 'helmet';
 
 config();
@@ -21,7 +20,7 @@ const MYS3DATADIR = `${process.env.MYS3Storage}`;
 if (!fs.existsSync(MYS3DATADIR)) {
     fs.mkdirSync(MYS3DATADIR);
 }
-createConnection()
+createConnection(process.env.APP_ENV as string)
     .then(async () => {
         app.use(bodyParser.json());
         // app.use(helmet()); not working typescript
