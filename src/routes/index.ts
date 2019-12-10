@@ -2,6 +2,7 @@ import Express, { Router } from 'express';
 // import { UserRoutes } from './userRoutes';
 import user from './userRoutes';
 import auth from './authRoutes';
+import bucket from './bucketRoutes';
 import { UserController } from '../controller/UserController';
 
 const api = Router();
@@ -83,6 +84,7 @@ api.get('/', (req: Express.Request, res: Express.Response) => {
 });
 api.use('/users', user);
 api.use('/auth', auth);
+api.use('/bucket', bucket);
 api.get('/truncate', UserController.truncate);
 
 export default api;
