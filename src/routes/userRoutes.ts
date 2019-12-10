@@ -11,10 +11,7 @@ api.get(
     verifyToken,
     UserController.all,
 );
-api.get(
-    '/truncate',
-    UserController.truncate,
-);
+api.get('/truncate', UserController.truncate);
 api.get(
     '/:id',
     passport.authenticate('JwtStrategy', { session: false }),

@@ -1,4 +1,3 @@
 import { Response } from 'express';
 
-export interface ResponseCustom extends Response {
-}
+export interface ResponseCustom extends Response {}
