@@ -3,6 +3,7 @@ import Express, { Router } from 'express';
 import user from './userRoutes';
 import auth from './authRoutes';
 import bucket from './bucketRoutes';
+import blob from './blobRoutes';
 import { UserController } from '../controller/UserController';
 
 const api = Router();
@@ -78,13 +79,21 @@ api.get('/', (req: Express.Request, res: Express.Response) => {
                 },
             ],
             Bucket: [],
-            Blob: [],
+            Blob: [
+                {
+                    name: 'Post Blob',
+                    method: 'Post',
+                    url: 'http://localhost:8080/api/blob',
+                    protected: 'Yes',
+                },
+            ],
         },
     }).end();
 });
 api.use('/users', user);
 api.use('/auth', auth);
 api.use('/bucket', bucket);
+api.use('/blob', blob);
 api.get('/truncate', UserController.truncate);
 
 export default api;
