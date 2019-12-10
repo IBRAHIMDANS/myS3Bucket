@@ -11,15 +11,22 @@ jobs:
         node-version: [12.x]
     services:
       postgres:
-        image : postges:latest
+        image: postgres:10.8
         env:
           POSTGRES_USER=ibrahima
           POSTGRES_PASSWORD=ibrahima
           POSTGRES_HOST=localhost
           POSTGRES_DB=myS3
           POSTGRES_PORT=5432
-        port:
-          5432:5432
+          POSTGRES_TEST_USER=ibrahima
+          POSTGRES_TEST_PASSWORD=ibrahima
+          POSTGRES_TEST_HOST=localhost
+          POSTGRES_TEST_DB=myS3Test
+          POSTGRES_TEST_PORT=5432
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
       - uses: actions/checkout@v1
