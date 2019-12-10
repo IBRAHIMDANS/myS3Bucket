@@ -59,8 +59,9 @@ export class BucketController {
     };
     // verifier afta
     // Get Delete by user
-    static deleteBucket = async (request: Request, response: Response) => {};
     // Verifier afta
-    static update = async (request: Request, response: Response) => {};
+    static update = async (request: Request, response: Response) => {
+        return null;
+    };
     // Post reset password user
 }
