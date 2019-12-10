@@ -1,4 +1,5 @@
 import {
+    BaseEntity,
     Column,
     CreateDateColumn,
     Entity,
@@ -10,7 +11,7 @@ import { IsDate, IsString, Length } from 'class-validator';
 import { Bucket } from './Bucket';
 
 @Entity()
-export class Blob {
+export class Blob extends BaseEntity {
     @PrimaryGeneratedColumn()
     id!: string;
 
@@ -43,6 +44,7 @@ export class Blob {
         bucket => bucket.id,
         {
             cascade: true,
+            eager: true,
         },
     )
     bucket!: Bucket;
