@@ -13,16 +13,16 @@ jobs:
       postgres:
         image: postgres:10.8
         env:
-          POSTGRES_USER=ibrahima
-          POSTGRES_PASSWORD=ibrahima
-          POSTGRES_HOST=localhost
-          POSTGRES_DB=myS3
-          POSTGRES_PORT=5432
-          POSTGRES_TEST_USER=ibrahima
-          POSTGRES_TEST_PASSWORD=ibrahima
-          POSTGRES_TEST_HOST=localhost
-          POSTGRES_TEST_DB=myS3Test
-          POSTGRES_TEST_PORT=5432
+          POSTGRES_USER: ibrahima
+          POSTGRES_PASSWORD: ibrahima
+          POSTGRES_HOST: localhost
+          POSTGRES_DB: myS3
+          POSTGRES_PORT: 5432
+          POSTGRES_TEST_USER: ibrahima
+          POSTGRES_TEST_PASSWORD: ibrahima
+          POSTGRES_TEST_HOST: localhost
+          POSTGRES_TEST_DB: myS3Test
+          POSTGRES_TEST_PORT: 5432
         ports:
           - 5432:5432
         # needed because the postgres container does not provide a healthcheck
@@ -40,5 +40,4 @@ jobs:
           yarn test
         env:
           CI: true
-        env_file:
-          - .env.model
+        env_file: ./.env.model
