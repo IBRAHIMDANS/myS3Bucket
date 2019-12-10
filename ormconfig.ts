@@ -1,6 +1,5 @@
 module.exports = [
     {
-        name: process.env.APP_ENV,
         type: process.env.BDD_type,
         host: process.env.POSTGRES_HOST,
         port: process.env.POSTGRES_PORT,

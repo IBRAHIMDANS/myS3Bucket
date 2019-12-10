@@ -9,21 +9,24 @@ import cacheControl from 'express-cache-controller';
 import * as http from 'http';
 import passport from 'passport';
 import * as fs from 'fs';
-// import * as helmet from 'helmet';
+import helmet from 'helmet';
 
-config();
+config(); // add dotenv
+
+const app: Express.Express = Express();
 export let server: http.Server;
+export const port = process.env.APP_PORT || 8082;
 
-export const app: Express.Express = Express();
-export const port = process.env.APP_PORT || 8080;
 const MYS3DATADIR = `${process.env.MYS3Storage}`;
+
 if (!fs.existsSync(MYS3DATADIR)) {
     fs.mkdirSync(MYS3DATADIR);
 }
-createConnection(process.env.APP_ENV as string)
+
+createConnection()
     .then(async () => {
         app.use(bodyParser.json());
-        // app.use(helmet()); not working typescript
+        app.use(helmet());
         app.use(cors());
         app.use(passport.initialize());
         app.use(cacheControl({ noCache: true }));
@@ -34,3 +37,5 @@ createConnection(process.env.APP_ENV as string)
         });
     })
     .catch(error => console.log(error));
+
+export default app;
