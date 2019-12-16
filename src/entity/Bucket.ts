@@ -20,7 +20,7 @@ export class Bucket extends BaseEntity {
     name!: string;
 
     @ManyToOne(
-        type => User,
+        () => User,
         user => user.uuid,
         {
             cascade: true,

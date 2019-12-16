@@ -44,7 +44,7 @@ export class User extends BaseEntity {
 
     // parce que plusieurs utilisateurs peuvent se connecter sur un bucket
     @OneToMany(
-        type => Bucket,
+        () => Bucket,
         bucket => bucket.user,
     )
     buckets!: Bucket[];

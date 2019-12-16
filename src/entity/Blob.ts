@@ -35,7 +35,7 @@ export class Blob extends BaseEntity {
     updatedAt?: Date;
 
     @ManyToOne(
-        type => Bucket,
+        () => Bucket,
         bucket => bucket.id,
         {
             cascade: true,
