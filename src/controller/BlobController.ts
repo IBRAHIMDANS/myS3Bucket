@@ -17,7 +17,7 @@ export class BlobController {
         request: Request,
         response: Response,
     ): Promise<Response> => {
-        console.log(request.body)
+        console.log(request.body);
         const blobRepository: Repository<Blob> = getRepository(Blob);
         const { name, path, size } = request.body;
         const blob = new Blob();
