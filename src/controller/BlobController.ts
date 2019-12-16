@@ -21,8 +21,9 @@ export class BlobController {
         const { name, path, size } = request.body;
         const blob = new Blob();
         await getRepository(Bucket)
-            .findOneOrFail(path)
+            .findOneOrFail({ name: path })
             .then(result => {
+                console.log(result);
                 blob.name = name;
                 blob.path = path;
                 blob.size = size;
@@ -31,7 +32,6 @@ export class BlobController {
             .catch(error => {
                 console.log(error);
             });
-
         const token = jwt.sign(
             {
                 name,
