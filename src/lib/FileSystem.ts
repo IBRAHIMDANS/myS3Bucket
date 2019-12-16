@@ -39,7 +39,6 @@ export async function renameDirectoryAction(
             },
         );
     });
-
 }
 
 // export function createBlobAction(id: string, bucket?: string) {

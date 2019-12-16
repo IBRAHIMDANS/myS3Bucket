@@ -3,7 +3,10 @@ import { Request, Response } from 'express';
 import { Bucket } from '../entity/Bucket';
 import jwt from 'jsonwebtoken';
 import config from '../config/config';
-import { createDirectoryAction, renameDirectoryAction, } from '../lib/FileSystem';
+import {
+    createDirectoryAction,
+    renameDirectoryAction,
+} from '../lib/FileSystem';
 import { RequestCustom } from '../interfaces/Request';
 
 export class BucketController {

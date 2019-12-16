@@ -2,9 +2,8 @@ import { getRepository, Repository } from 'typeorm';
 import { Request, Response } from 'express';
 import { Blob } from '../entity/Blob';
 import jwt from 'jsonwebtoken';
-import * as fs from 'fs';
 import config from '../config/config';
-import multer from 'multer';
+import { Bucket } from '../entity/Bucket';
 
 export class BlobController {
     private static blobRepository: Repository<Blob>;
@@ -21,13 +20,22 @@ export class BlobController {
         const blobRepository: Repository<Blob> = getRepository(Blob);
         const { name, path, size } = request.body;
         const blob = new Blob();
-        blob.name = name;
-        blob.path = path;
-        blob.size = size;
+        await getRepository(Bucket)
+            .findOneOrFail(path)
+            .then(result => {
+                blob.name = name;
+                blob.path = path;
+                blob.size = size;
+                blob.bucket = result;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
         const token = jwt.sign(
             {
                 name,
-                user: blob.bucket.user,
+                user: request.user,
             },
             config.jwtSecret,
         );
