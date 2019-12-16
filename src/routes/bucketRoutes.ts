@@ -11,6 +11,12 @@ api.post(
     verifyToken,
     BucketController.post,
 );
+api.head(
+    '/:id',
+    passport.authenticate('JwtStrategy', { session: false }),
+    verifyToken,
+    BucketController.head,
+);
 api.put(
     '/:id',
     passport.authenticate('JwtStrategy', { session: false }),

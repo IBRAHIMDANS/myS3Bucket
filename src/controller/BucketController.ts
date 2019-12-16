@@ -53,6 +53,7 @@ export class BucketController {
                 return response.status(500).json({ err });
             });
     };
+
     // Update Bucket by id
     static update = async (
         request: Request,
@@ -87,6 +88,7 @@ export class BucketController {
                 response.status(500).json('directory not created ');
             });
     };
+
     static delete = async (
         request: Request,
         response: Response,
@@ -108,6 +110,22 @@ export class BucketController {
             })
             .catch(error => {
                 return response.status(500).json(error);
+            });
+    };
+
+    static head = async (
+        request: Request,
+        response: Response,
+    ): Promise<Response> => {
+        const { id } = request.params;
+        const bucketRepository: Repository<Bucket> = getRepository(Bucket);
+        return bucketRepository
+            .findOneOrFail(id)
+            .then(() => {
+                return response.sendStatus(200);
+            })
+            .catch(() => {
+                return response.sendStatus(400);
             });
     };
 }
