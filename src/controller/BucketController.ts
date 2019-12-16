@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { Bucket } from '../entity/Bucket';
 import jwt from 'jsonwebtoken';
 import config from '../config/config';
-import { createDirectoryAction } from '../lib/FileSystem';
+import { createDirectoryAction, renameDirectoryAction, } from '../lib/FileSystem';
 import { RequestCustom } from '../interfaces/Request';
 
 export class BucketController {
@@ -53,14 +53,44 @@ export class BucketController {
                 return response.status(500).json({ err });
             });
     };
-    // verifier afta
-    // Get Delete by user
-    // Verifier afta
-    static update = async (request: Request, response: Response) => {
+    // Update Bucket by id
+    static update = async (
+        request: Request,
+        response: Response,
+    ): Promise<Response | void> => {
         const bucketRepository: Repository<Bucket> = getRepository(Bucket);
         const { name } = request.body;
-        bucketRepository.find()
+        return await bucketRepository
+            .findOneOrFail(request.params.id)
+            .then(async (bucket: Bucket) => {
+                return await renameDirectoryAction(
+                    bucket.user.uuid,
+                    bucket.name,
+                    name,
+                ).then(async () => {
+                    return await bucketRepository
+                        .createQueryBuilder()
+                        .update()
+                        .set({ name })
+                        .where({ id: request.params.id })
+                        // .returning(['name', 'id'])
+                        .execute()
+                        .then(() => {
+                            return response.status(200).json({ name });
+                        })
+                        .catch((error: Error) => {
+                            return response.status(500).json({ error });
+                        });
+                });
+            })
+            .catch(() => {
+                response.status(500).json('directory not created ');
+            });
+    };
+    static delete = async (
+        request: Request,
+        response: Response,
+    ): Promise<null> => {
         return null;
     };
-    // Post reset password user
 }

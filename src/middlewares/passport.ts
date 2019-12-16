@@ -13,7 +13,6 @@ passport.use(
             passwordField: 'password',
         },
         async (email: string, password: string, next: Function) => {
-            console.log(typeof password);
             return await getRepository(User)
                 .findOneOrFail({
                     select: ['uuid', 'nickname', 'email', 'password'],

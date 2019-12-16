@@ -11,11 +11,17 @@ api.post(
     verifyToken,
     BucketController.post,
 );
-api.patch(
-    '/',
+api.put(
+    '/:id',
     passport.authenticate('JwtStrategy', { session: false }),
     verifyToken,
     BucketController.update,
+);
+api.delete(
+    '/:id',
+    passport.authenticate('JwtStrategy', { session: false }),
+    verifyToken,
+    BucketController.delete,
 );
 
 export default api;
