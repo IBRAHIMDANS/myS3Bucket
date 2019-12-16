@@ -3,7 +3,11 @@ import { Request, Response } from 'express';
 import { Bucket } from '../entity/Bucket';
 import jwt from 'jsonwebtoken';
 import config from '../config/config';
-import { createDirectoryAction, removeDirectoryAction, renameDirectoryAction, } from '../lib/FileSystem';
+import {
+    createDirectoryAction,
+    removeDirectoryAction,
+    renameDirectoryAction,
+} from '../lib/FileSystem';
 import { RequestCustom } from '../interfaces/Request';
 
 export class BucketController {
@@ -20,7 +24,7 @@ export class BucketController {
     ): Promise<Response> => {
         const userRepository: Repository<Bucket> = getRepository(Bucket);
         return await userRepository
-            .find()
+            .find({ where: { user: request.user } })
             .then(result => response.json(result).status(200))
             .catch(error => response.status(500).json(error));
     };

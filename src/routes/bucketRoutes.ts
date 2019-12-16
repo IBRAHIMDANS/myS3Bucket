@@ -5,6 +5,12 @@ import verifyToken from '../middlewares/verifyToken';
 
 const api = Router();
 
+api.get(
+    '/',
+    passport.authenticate('JwtStrategy', { session: false }),
+    verifyToken,
+    BucketController.all,
+);
 api.post(
     '/',
     passport.authenticate('JwtStrategy', { session: false }),
