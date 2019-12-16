@@ -25,6 +25,8 @@ export class Bucket extends BaseEntity {
         {
             cascade: true,
             eager: true,
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
     )
     @JoinTable()

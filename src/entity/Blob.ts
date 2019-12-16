@@ -7,7 +7,7 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
-import { IsDate, IsString, Length } from 'class-validator';
+import { IsDate, IsString } from 'class-validator';
 import { Bucket } from './Bucket';
 
 @Entity()
@@ -45,6 +45,8 @@ export class Blob extends BaseEntity {
         {
             cascade: true,
             eager: true,
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
         },
     )
     bucket!: Bucket;

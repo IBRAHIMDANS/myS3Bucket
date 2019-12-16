@@ -3,10 +3,7 @@ import { Request, Response } from 'express';
 import { Bucket } from '../entity/Bucket';
 import jwt from 'jsonwebtoken';
 import config from '../config/config';
-import {
-    createDirectoryAction,
-    renameDirectoryAction,
-} from '../lib/FileSystem';
+import { createDirectoryAction, removeDirectoryAction, renameDirectoryAction, } from '../lib/FileSystem';
 import { RequestCustom } from '../interfaces/Request';
 
 export class BucketController {
@@ -93,7 +90,24 @@ export class BucketController {
     static delete = async (
         request: Request,
         response: Response,
-    ): Promise<null> => {
-        return null;
+    ): Promise<Response> => {
+        const bucketRepository: Repository<Bucket> = getRepository(Bucket);
+        return await bucketRepository
+            .findOneOrFail(request.params.id)
+            .then(async bucket => {
+                removeDirectoryAction(`${bucket.user.uuid}/${bucket.name}`);
+                return await bucketRepository
+                    .remove(bucket)
+                    .then(result => {
+                        console.log(result);
+                        return response.status(200).json(bucket);
+                    })
+                    .catch(error => {
+                        return response.status(500).json(error);
+                    });
+            })
+            .catch(error => {
+                return response.status(500).json(error);
+            });
     };
 }
