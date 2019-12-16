@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { BlobController } from '../controller/BlobController';
 import passport from '../middlewares/passport';
 import verifyToken from '../middlewares/verifyToken';
-import * as multer from 'multer';
+import multer from 'multer';
 
 const api = Router();
 

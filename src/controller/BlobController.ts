@@ -4,10 +4,10 @@ import { Blob } from '../entity/Blob';
 import jwt from 'jsonwebtoken';
 import config from '../config/config';
 import { Bucket } from '../entity/Bucket';
+import multer, { StorageEngine } from 'multer';
 
 export class BlobController {
     private static blobRepository: Repository<Blob>;
-
     constructor() {
         BlobController.blobRepository = getRepository(Blob);
     }
@@ -17,6 +17,7 @@ export class BlobController {
         request: Request,
         response: Response,
     ): Promise<Response> => {
+        console.log(request.body)
         const blobRepository: Repository<Blob> = getRepository(Blob);
         const { name, path, size } = request.body;
         const blob = new Blob();
