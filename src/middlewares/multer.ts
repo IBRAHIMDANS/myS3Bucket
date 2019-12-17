@@ -14,7 +14,7 @@ export default async (
     const bucketRepository: Repository<Bucket> = getRepository(Bucket);
     const storage: StorageEngine = multer.diskStorage({
         destination: async (
-            req: RequestCustom,
+            req: any,
             file: Express.Multer.File,
             cb: (error: Error | null, destination: string) => void,
         ): Promise<any> => {
