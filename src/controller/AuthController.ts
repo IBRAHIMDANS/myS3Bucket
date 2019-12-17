@@ -77,7 +77,7 @@ export class AuthController {
 
     static ChangePassword = async (
         request: Request,
-        _: Response,
+        response: Response,
     ): Promise<void> => {
         console.log(request.params.id);
     };

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
+import multer, { StorageEngine } from 'multer';
 
-import multer from 'multer';
 import { getRepository, Repository } from 'typeorm';
 import { Bucket } from '../entity/Bucket';
 import { RequestCustom } from '../interfaces/Request';
@@ -12,15 +12,13 @@ export default async (
 ) => {
     const user = (request as RequestCustom).user;
     const bucketRepository: Repository<Bucket> = getRepository(Bucket);
-    const storage = multer.diskStorage({
+    const storage: StorageEngine = multer.diskStorage({
         destination: async (
             req: RequestCustom,
-            file: any,
-            cb,
-        ): Promise<void> => {
-            console.log(req.body.name);
-            console.log(user);
-            bucketRepository
+            file: Express.Multer.File,
+            cb: (error: Error | null, destination: string) => void,
+        ): Promise<any> => {
+            await bucketRepository
                 .findOneOrFail({ where: { name: req.body.path, user } })
                 .then(result => {
                     cb(
@@ -32,7 +30,11 @@ export default async (
                     cb(err, `${err}`);
                 });
         },
-        filename: async (req: RequestCustom, file: any, cb): Promise<void> => {
+        filename: async (
+            req: Request,
+            file: Express.Multer.File,
+            cb: (error: Error | null, destination: string) => void,
+        ): Promise<void> => {
             cb(null, file.originalname);
         },
     });
