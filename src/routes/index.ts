@@ -78,7 +78,32 @@ api.get('/', (req: Express.Request, res: Express.Response) => {
                     protected: 'No',
                 },
             ],
-            Bucket: [],
+            Bucket: [
+                {
+                    name: 'Get All Bucket By User',
+                    method: 'Get',
+                    url: 'http://localhost:8080/api/buckets',
+                    protected: 'Yes',
+                },
+                {
+                    name: 'Post Bucket',
+                    method: 'Post',
+                    url: 'http://localhost:8080/api/bucket',
+                    protected: 'Yes',
+                },
+                {
+                    name: 'Update Bucket by id',
+                    method: 'Patch',
+                    url: 'http://localhost:8080/api/bucket/${id}',
+                    protected: 'Yes',
+                },
+                {
+                    name: 'Delete Bucket by id',
+                    method: 'Delete',
+                    url: 'http://localhost:8080/api/bucket/${id}',
+                    protected: 'Yes',
+                },
+            ],
             Blob: [
                 {
                     name: 'Post Blob',
