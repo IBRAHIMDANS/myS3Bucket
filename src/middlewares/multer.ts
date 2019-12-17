@@ -17,7 +17,7 @@ export default async (
             req: any,
             file: Express.Multer.File,
             cb: (error: Error | null, destination: string) => void,
-        ): Promise<any> => {
+        ): Promise<void> => {
             await bucketRepository
                 .findOneOrFail({ where: { name: req.body.path, user } })
                 .then(result => {
