@@ -17,18 +17,18 @@ export class BlobController {
         request: Request,
         response: Response,
     ): Promise<Response> => {
-        console.log('request', request);
-        console.log('body', request.body);
+        console.log('request', request.file);
         const blobRepository: Repository<Blob> = getRepository(Blob);
-        const { name, path, size } = request.body;
+        const { fieldname, path, size } = request.file;
+        console.log(typeof size);
         const blob = new Blob();
         await getRepository(Bucket)
             .findOneOrFail({ name: path })
             .then(result => {
                 // console.log(result);
-                blob.name = name;
+                blob.name = fieldname;
                 blob.path = path;
-                blob.size = size;
+                blob.size = String(size);
                 blob.bucket = result;
             })
             .catch(error => {

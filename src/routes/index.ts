@@ -82,7 +82,7 @@ api.get('/', (req: Express.Request, res: Express.Response) => {
                 {
                     name: 'Get All Bucket By User',
                     method: 'Get',
-                    url: 'http://localhost:8080/api/buckets',
+                    url: 'http://localhost:8080/api/bucket',
                     protected: 'Yes',
                 },
                 {

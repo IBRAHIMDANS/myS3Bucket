@@ -18,9 +18,11 @@ export default async (
             file: Express.Multer.File,
             cb: (error: Error | null, destination: string) => void,
         ): Promise<void> => {
+            await bucketRepository.find().then(res => console.log(res));
             await bucketRepository
-                .findOneOrFail({ where: { name: req.body.path, user } })
+                .findOneOrFail({ where: { name: req.body.path } })
                 .then(result => {
+
                     cb(
                         null,
                         `${process.env.MYS3Storage}/${user.uuid}/${result.name}`,
