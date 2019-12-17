@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import config from '../config/config';
 
-export default (req: Request, res: Response, next: Function) => {
+export default (req: Request, res: Response, next: NextFunction) => {
     if (req.headers.authorization) {
         const token = req.headers.authorization.slice(7);
         jwt.verify(token, config.jwtSecret, (err: Error, decoded: any) => {
