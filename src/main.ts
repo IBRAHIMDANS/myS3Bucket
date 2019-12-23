@@ -9,29 +9,36 @@ import cacheControl from 'express-cache-controller';
 import * as http from 'http';
 import passport from 'passport';
 import * as fs from 'fs';
-import { log } from 'util';
-// import * as helmet from 'helmet';
+import helmet from 'helmet';
 
-config();
+config(); // add dotenv
+
+const app: Express.Express = Express();
 export let server: http.Server;
+export const port = process.env.APP_PORT || 8082;
 
-export const app: Express.Express = Express();
-export const port = process.env.APP_PORT || 8080;
-const MYS3DATADIR = './data';
+const MYS3DATADIR = `${process.env.MYS3Storage}`;
+
 if (!fs.existsSync(MYS3DATADIR)) {
     fs.mkdirSync(MYS3DATADIR);
 }
+
 createConnection()
     .then(async () => {
         app.use(bodyParser.json());
-        // app.use(helmet()); not working typescript
+        app.use(helmet());
         app.use(cors());
         app.use(passport.initialize());
         app.use(cacheControl({ noCache: true }));
         app.use(bodyParser.urlencoded({ extended: true }));
+        app.get('/', (req: Express.Request, res: Express.Response) =>
+            res.status(200).end(' go to url route /api'),
+        );
         app.use('/api', route);
         server = app.listen(port, () => {
             console.log(`server started at http://localhost:${port}/api`);
         });
     })
     .catch(error => console.log(error));
+
+export default app;

@@ -2,9 +2,15 @@ import { getRepository, Repository } from 'typeorm';
 import { Request, Response } from 'express';
 import { User } from '../entity/User';
 import jwt from 'jsonwebtoken';
-import { sendMail } from './MailController';
+import { sendMail } from '../lib/Mailer';
 import { RequestCustom } from '../interfaces/Request';
 import * as fs from 'fs';
+import * as rimraf from 'rimraf';
+import config from '../config/config';
+import {
+    createDirectoryAction,
+    removeDirectoryAction,
+} from '../lib/FileSystem';
 
 export class UserController {
     private static userRepository: Repository<User>;
@@ -56,16 +62,12 @@ export class UserController {
                 nickname,
                 email,
             },
-            process.env.jwtSecret as string,
+            config.jwtSecret,
         );
         return await userRepository
             .save(user)
             .then(async () => {
-                if (fs.existsSync('./data')) {
-                    if (!fs.existsSync(`./data/${user.uuid}`)) {
-                        fs.mkdirSync(`./data/${user.uuid}`);
-                    }
-                }
+                createDirectoryAction(`${user.uuid}`);
                 return await sendMail(
                     user,
                     'Bienvenue',
@@ -96,6 +98,7 @@ export class UserController {
         return await userRepository
             .remove(user as User)
             .then((result: User) => {
+                removeDirectoryAction(`${request.params.id}`);
                 return response.json(result).status(200);
             })
             .catch((err: Error) => {
@@ -154,7 +157,7 @@ export class UserController {
                             nickname: user.nickname,
                             email: user.email,
                         },
-                        process.env.jwtSecret as string,
+                        config.jwtSecret,
                         { expiresIn: '1h' },
                     );
                     return response.status(200).json({ meta: token });
@@ -175,10 +178,14 @@ export class UserController {
         response: Response,
     ): Promise<Response> => {
         const userRepository: Repository<User> = getRepository(User);
-        const { nickname, email } = request.body;
         return await userRepository
             .clear()
             .then(result => {
+                if (fs.existsSync(`${process.env.MYS3Storage}`)) {
+                    if (fs.existsSync(`${process.env.MYS3Storage}`)) {
+                        rimraf.sync(`${process.env.MYS3Storage}`);
+                    }
+                }
                 return response.status(200).json(result);
             })
             .catch(err => {

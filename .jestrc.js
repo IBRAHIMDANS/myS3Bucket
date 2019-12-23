@@ -5,5 +5,5 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
   // ignoring node modules and main entry point
-  coveragePathIgnorePatterns: ['/node_modules/']
+  coveragePathIgnorePatterns: ['/node_modules/','<rootDir>/src/entity']
 }

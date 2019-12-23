@@ -1,9 +1,16 @@
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+    BaseEntity,
+    Column,
+    Entity,
+    JoinTable,
+    ManyToOne,
+    PrimaryGeneratedColumn,
+} from 'typeorm';
 import { IsString, Length } from 'class-validator';
 import { User } from './User';
 
 @Entity()
-export class Bucket {
+export class Bucket extends BaseEntity {
     @PrimaryGeneratedColumn()
     id!: number;
 
@@ -12,11 +19,14 @@ export class Bucket {
     @IsString()
     name!: string;
 
-    @ManyToMany(
-        type => User,
-        user => user.buckets,
+    @ManyToOne(
+        () => User,
+        user => user.uuid,
         {
             cascade: true,
+            eager: true,
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
     )
     @JoinTable()

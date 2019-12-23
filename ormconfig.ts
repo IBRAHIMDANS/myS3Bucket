@@ -19,6 +19,7 @@ module.exports = [
         },
     },
     {
+        name: 'Test',
         type: process.env.BDD_type,
         host: process.env.POSTGRES_TEST_HOST,
         port: process.env.POSTGRES_TEST_PORT,

@@ -17,6 +17,8 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'prettier/@typescript-eslint',
         'plugin:prettier/recommended',
+
+
     ],
     plugins: ['jest', 'prettier'],
     rules: {
@@ -24,5 +26,7 @@ module.exports = {
 
         // Typescript stuff
         '@typescript-eslint/no-var-requires': 'off',
+        "@typescript-eslint/no-namespace": "off",
+
     },
 };

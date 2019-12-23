@@ -2,6 +2,8 @@ import Express, { Router } from 'express';
 // import { UserRoutes } from './userRoutes';
 import user from './userRoutes';
 import auth from './authRoutes';
+import bucket from './bucketRoutes';
+import blob from './blobRoutes';
 import { UserController } from '../controller/UserController';
 
 const api = Router();
@@ -19,14 +21,20 @@ api.get('/', (req: Express.Request, res: Express.Response) => {
                     protected: 'No',
                 },
                 {
-                    name: 'change Password',
+                    name: 'check user for change password',
                     method: 'Post',
-                    url: 'http://localhost:8080/api/auth/changePassword',
+                    url: 'http://localhost:8080/api/auth/checkPassword',
+                    protected: 'No',
+                },
+                {
+                    name: 'change password',
+                    method: 'Put',
+                    url: 'http://localhost:8080/api/auth/changePassword/:id',
                     protected: 'No',
                 },
                 {
                     name: 'reset password',
-                    method: 'Post',
+                    method: 'Put',
                     url: 'http://localhost:8080/api/users/resetPassword',
                     protected: 'Yes',
                 },
@@ -62,14 +70,79 @@ api.get('/', (req: Express.Request, res: Express.Response) => {
                     url: 'http://localhost:8080/api/users/${id}',
                     protected: 'Yes',
                 },
+                {
+                    name: 'Truncate user in bdd',
+                    method: 'Delete',
+                    warning: 'DEV only',
+                    url: 'http://localhost:8080/api/users/truncate',
+                    protected: 'No',
+                },
             ],
-            Bucket: [],
-            Blob: [],
+            Bucket: [
+                {
+                    name: 'Get All Bucket By User',
+                    method: 'Get',
+                    url: 'http://localhost:8080/api/bucket',
+                    protected: 'Yes',
+                },
+                {
+                    name: 'Post Bucket',
+                    method: 'Post',
+                    url: 'http://localhost:8080/api/bucket',
+                    protected: 'Yes',
+                },
+                {
+                    name: 'Update Bucket by id',
+                    method: 'Patch',
+                    url: 'http://localhost:8080/api/bucket/${id}',
+                    protected: 'Yes',
+                },
+                {
+                    name: 'Delete Bucket by id',
+                    method: 'Delete',
+                    url: 'http://localhost:8080/api/bucket/${id}',
+                    protected: 'Yes',
+                },
+            ],
+            Blob: [
+                {
+                    name: 'Get Blob or retrieve',
+                    method: 'Post',
+                    url: 'http://localhost:8080/api/blob/${id}',
+                    protected: 'Yes',
+                },
+                {
+                    name: 'Get Blob metaData',
+                    method: 'Post',
+                    url: 'http://localhost:8080/api/blob/${id}/meta',
+                    protected: 'Yes',
+                },
+                {
+                    name: 'Post Blob and ',
+                    method: 'Post',
+                    url: 'http://localhost:8080/api/blob?path=${path}',
+                    protected: 'Yes',
+                },
+                {
+                    name: 'Delete Blob',
+                    method: 'Delete',
+                    url: 'http://localhost:8080/api/blob/${id}',
+                    protected: 'Yes',
+                },
+                {
+                    name: 'Duplicate Blob ',
+                    method: 'Post',
+                    url: 'http://localhost:8080/api/blob/duplicate/${id}',
+                    protected: 'Yes',
+                },
+            ],
         },
     }).end();
 });
 api.use('/users', user);
 api.use('/auth', auth);
+api.use('/bucket', bucket);
+api.use('/blob', blob);
 api.get('/truncate', UserController.truncate);
 
 export default api;

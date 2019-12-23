@@ -1,4 +1,5 @@
 import {
+    BaseEntity,
     Column,
     CreateDateColumn,
     Entity,
@@ -6,18 +7,13 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
-import { IsDate, IsString, Length } from 'class-validator';
+import { IsDate, IsString } from 'class-validator';
 import { Bucket } from './Bucket';
 
 @Entity()
-export class Blob {
+export class Blob extends BaseEntity {
     @PrimaryGeneratedColumn()
-    id!: string;
-
-    @Column('text', { nullable: true })
-    @Length(4, 20)
-    @IsString()
-    nickname!: string;
+    id!: number;
 
     @Column('text')
     name!: string;
@@ -39,10 +35,13 @@ export class Blob {
     updatedAt?: Date;
 
     @ManyToOne(
-        type => Bucket,
+        () => Bucket,
         bucket => bucket.id,
         {
             cascade: true,
+            eager: true,
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
         },
     )
     bucket!: Bucket;

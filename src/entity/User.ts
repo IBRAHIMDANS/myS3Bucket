@@ -1,12 +1,14 @@
 import {
+    BaseEntity,
     BeforeInsert,
     Column,
     CreateDateColumn,
     Entity,
     EventSubscriber,
     ManyToMany,
+    OneToMany,
     PrimaryGeneratedColumn,
-    UpdateDateColumn
+    UpdateDateColumn,
 } from 'typeorm';
 import { Bucket } from './Bucket';
 import { IsDate, IsEmail, IsString, Length } from 'class-validator';
@@ -14,7 +16,7 @@ import * as bcrypt from 'bcryptjs';
 
 @Entity()
 @EventSubscriber()
-export class User {
+export class User extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     uuid!: string;
 
@@ -41,8 +43,8 @@ export class User {
     updatedAt!: Date;
 
     // parce que plusieurs utilisateurs peuvent se connecter sur un bucket
-    @ManyToMany(
-        type => Bucket,
+    @OneToMany(
+        () => Bucket,
         bucket => bucket.user,
     )
     buckets!: Bucket[];
