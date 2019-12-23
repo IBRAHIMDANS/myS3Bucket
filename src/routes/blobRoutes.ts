@@ -13,5 +13,23 @@ api.post(
     multerMiddleware,
     BlobController.post,
 );
+api.post(
+    '/duplicate/:id',
+    passport.authenticate('JwtStrategy', { session: false }),
+    verifyToken,
+    BlobController.duplicate,
+);
+api.delete(
+    '/:id',
+    passport.authenticate('JwtStrategy', { session: false }),
+    verifyToken,
+    BlobController.delete,
+);
+api.get(
+    '/:id',
+    passport.authenticate('JwtStrategy', { session: false }),
+    verifyToken,
+    BlobController.retrieve,
+);
 
 export default api;

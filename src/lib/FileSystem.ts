@@ -55,10 +55,20 @@ export async function renameDirectoryAction(
 //         }
 //     }
 // }
-// export function removeBlobAction(id: string, blob?: Blob) {
-//     if (fs.existsSync(`${process.env.MYS3Storage}`)) {
-//         if (fs.existsSync(`${process.env.MYS3Storage}/${id}`)) {
-//             return rimraf.sync(`${process.env.MYS3Storage}/${id}`);
-//         }
-//     }
-// }
+export async function removeBlobAction(
+    id: string, // user uuid
+    blob: string, // blob path for example ./dataStorage/22...
+): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+        if (fs.existsSync(`${process.env.MYS3Storage}`)) {
+            if (fs.existsSync(`${process.env.MYS3Storage}/${id}`)) {
+                rimraf.sync(`${blob}`);
+                return resolve(true);
+            } else {
+                reject(false);
+            }
+        } else {
+            reject(false);
+        }
+    });
+}

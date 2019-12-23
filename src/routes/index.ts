@@ -106,9 +106,27 @@ api.get('/', (req: Express.Request, res: Express.Response) => {
             ],
             Blob: [
                 {
-                    name: 'Post Blob',
+                    name: 'Get Blob or retrie',
                     method: 'Post',
-                    url: 'http://localhost:8080/api/blob',
+                    url: 'http://localhost:8080/api/blob/${id}',
+                    protected: 'Yes',
+                },
+                {
+                    name: 'Post Blob and ',
+                    method: 'Post',
+                    url: 'http://localhost:8080/api/blob?path=${path}',
+                    protected: 'Yes',
+                },
+                {
+                    name: 'Delete Blob',
+                    method: 'Delete',
+                    url: 'http://localhost:8080/api/blob/${id}',
+                    protected: 'Yes',
+                },
+                {
+                    name: 'Duplicate Blob ',
+                    method: 'Post',
+                    url: 'http://localhost:8080/api/blob/duplicate/${id}',
                     protected: 'Yes',
                 },
             ],
