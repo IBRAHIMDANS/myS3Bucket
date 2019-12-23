@@ -106,9 +106,15 @@ api.get('/', (req: Express.Request, res: Express.Response) => {
             ],
             Blob: [
                 {
-                    name: 'Get Blob or retrie',
+                    name: 'Get Blob or retrieve',
                     method: 'Post',
                     url: 'http://localhost:8080/api/blob/${id}',
+                    protected: 'Yes',
+                },
+                {
+                    name: 'Get Blob metaData',
+                    method: 'Post',
+                    url: 'http://localhost:8080/api/blob/${id}/meta',
                     protected: 'Yes',
                 },
                 {

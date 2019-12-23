@@ -35,7 +35,34 @@ export class BlobController {
                     },
                     config.jwtSecret,
                 );
-                return response.status(200).json({meta: {token}});
+                return response.status(200).json({ meta: { token } });
+            })
+            .catch((err: Error) => {
+                return response.status(404).json(err);
+            });
+    };
+    // Get MetaDATA Blob by id
+    static getMetaData = async (
+        request: Request,
+        response: Response,
+    ): Promise<Response> => {
+        const blobRepository: Repository<Blob> = getRepository(Blob);
+        return await blobRepository
+            .findOneOrFail({
+                where: { id: request.params.id },
+            })
+            .then(async blob => {
+                const { path, size } = blob;
+                console.log(path, size);
+                const token = jwt.sign(
+                    {
+                        size,
+                        path,
+                        user: request.user,
+                    },
+                    config.jwtSecret,
+                );
+                return response.status(200).json({ meta: { token } });
             })
             .catch((err: Error) => {
                 return response.status(404).json(err);

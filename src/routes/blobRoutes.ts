@@ -31,5 +31,11 @@ api.get(
     verifyToken,
     BlobController.retrieve,
 );
+api.get(
+    '/:id/meta',
+    passport.authenticate('JwtStrategy', { session: false }),
+    verifyToken,
+    BlobController.getMetaData,
+);
 
 export default api;
