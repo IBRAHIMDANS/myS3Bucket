@@ -4,7 +4,6 @@ import { Blob } from '../entity/Blob';
 import jwt from 'jsonwebtoken';
 import config from '../config/config';
 import { Bucket } from '../entity/Bucket';
-import multer, { StorageEngine } from 'multer';
 
 export class BlobController {
     private static blobRepository: Repository<Blob>;
@@ -19,35 +18,35 @@ export class BlobController {
     ): Promise<Response> => {
         console.log('request', request.file);
         const blobRepository: Repository<Blob> = getRepository(Blob);
-        const { fieldname, path, size } = request.file;
-        console.log(typeof size);
-        const blob = new Blob();
-        await getRepository(Bucket)
-            .findOneOrFail({ name: path })
-            .then(result => {
-                // console.log(result);
-                blob.name = fieldname;
+        const { filename, path, size } = request.file;
+        return await getRepository(Bucket)
+            .findOneOrFail({ where: { name: request.query.path } })
+            .then(async result => {
+                const blob = new Blob();
+                blob.name = filename;
                 blob.path = path;
                 blob.size = String(size);
                 blob.bucket = result;
+                const token = jwt.sign(
+                    {
+                        name: blob.name,
+                        user: request.user,
+                    },
+                    config.jwtSecret,
+                );
+                return await blobRepository
+                    .save(blob)
+                    .then(() => {
+                        return response
+                            .status(200)
+                            .json({ blob, meta: { token } });
+                    })
+                    .catch(err => {
+                        return response.status(500).json({ err });
+                    });
             })
-            .catch(error => {
-                console.log(error);
-            });
-        const token = jwt.sign(
-            {
-                name,
-                user: request.user,
-            },
-            config.jwtSecret,
-        );
-        return await blobRepository
-            .save(blob)
-            .then(() => {
-                return response.status(200).json({ blob, meta: { token } });
-            })
-            .catch(err => {
-                return response.status(500).json({ err });
+            .catch(() => {
+                return response.json('bucket not found');
             });
     };
 }

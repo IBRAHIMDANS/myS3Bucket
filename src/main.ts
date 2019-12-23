@@ -31,6 +31,9 @@ createConnection()
         app.use(passport.initialize());
         app.use(cacheControl({ noCache: true }));
         app.use(bodyParser.urlencoded({ extended: true }));
+        app.get('/', (req: Express.Request, res: Express.Response) =>
+            res.status(200).end(' go to url route /api'),
+        );
         app.use('/api', route);
         server = app.listen(port, () => {
             console.log(`server started at http://localhost:${port}/api`);
