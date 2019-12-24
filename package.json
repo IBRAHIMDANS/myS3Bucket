@@ -56,9 +56,7 @@
     "pg": "^7.12.1",
     "ts-jest": "^24.2.0",
     "ts-node": "3.3.0",
-    "typescript": "3.3.3333"
-  },
-  "devDependencies": {
+    "typescript": "3.3.3333",
     "@babel/cli": "^7.7.7",
     "@babel/core": "^7.7.7",
     "@babel/node": "^7.7.7",
@@ -91,7 +89,9 @@
     "@types/passport": "^1.0.1",
     "@types/supertest": "^2.0.8",
     "@typescript-eslint/eslint-plugin": "^2.11.0",
-    "@typescript-eslint/parser": "^2.7.0",
+    "@typescript-eslint/parser": "^2.7.0"
+  },
+  "devDependencies": {
     "babel-jest": "^24.9.0",
     "chai": "^4.2.0",
     "eslint": "^6.6.0",
