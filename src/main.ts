@@ -20,10 +20,11 @@ export const port = process.env.APP_PORT || 8082;
 const MYS3DATADIR = `${process.env.MYS3Storage}`;
 
 if (!fs.existsSync(MYS3DATADIR)) {
+    console.log('hello');
+    console.log(MYS3DATADIR);
     fs.mkdirSync(MYS3DATADIR);
 }
-
-createConnection()
+createConnection('default')
     .then(async () => {
         app.use(bodyParser.json());
         app.use(helmet());

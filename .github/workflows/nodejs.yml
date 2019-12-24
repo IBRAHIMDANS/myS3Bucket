@@ -13,16 +13,16 @@ jobs:
       postgres:
         image: postgres:10.8
         env:
-          POSTGRES_USER: ibrahima
-          POSTGRES_PASSWORD: ibrahima
-          POSTGRES_HOST: localhost
-          POSTGRES_DB: myS3
-          POSTGRES_PORT: 5432
-          POSTGRES_TEST_USER: ibrahima
-          POSTGRES_TEST_PASSWORD: ibrahima
-          POSTGRES_TEST_HOST: localhost
-          POSTGRES_TEST_DB: myS3Test
-          POSTGRES_TEST_PORT: 5432
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+          POSTGRES_TEST_USER: ${{ secrets.POSTGRES_TEST_USER }}
+          POSTGRES_TEST_PASSWORD: ${{ secrets.POSTGRES_TEST_PASSWORD }}
+          POSTGRES_TEST_HOST: ${{ secrets.POSTGRES_TEST_HOST }}
+          POSTGRES_TEST_DB: ${{ secrets.POSTGRES_TEST_DB }}
+          POSTGRES_TEST_PORT: ${{ secrets.POSTGRES_TEST_PORT }}
         ports:
           - 5432:5432
         # needed because the postgres container does not provide a healthcheck

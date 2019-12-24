@@ -2,6 +2,7 @@ version: "3.7"
 services:
   Postgres:
     image: postgres
+    container_name: Postgres
     restart: always
     ports:
       - 5436:5432
@@ -9,6 +10,7 @@ services:
       - .env
   Adminer:
     image: adminer
+    container_name: Adminer
     restart: always
     links:
       - Postgres:postgres
@@ -16,8 +18,9 @@ services:
       - 4444:8080
   mys3bucket:
     build: .
+    container_name: myS3Bucket
     ports:
-      - 8080:8080
+      - 8084:8080
     links:
       - Postgres:postgres
     env_file:
