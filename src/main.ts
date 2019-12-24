@@ -15,7 +15,7 @@ config(); // add dotenv
 
 const app: Express.Express = Express();
 export let server: http.Server;
-export const port = process.env.APP_PORT || 8082;
+export const port = process.env.PORT || 8082;
 
 const MYS3DATADIR = `${process.env.MYS3Storage}`;
 
