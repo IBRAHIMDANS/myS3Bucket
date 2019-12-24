@@ -5,7 +5,7 @@
   "author": "Ibrahima DANSOKO <ibrahima.dansoko@outlook.com>, Benjamin Benoit",
   "license": "MIT",
   "private": true,
-  "main": "dist/main.js",
+  "main": "src/main.js",
   "types": "types.d.ts",
   "scripts": {
     "test:static": "yarn tsc",
