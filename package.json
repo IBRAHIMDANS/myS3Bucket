@@ -15,7 +15,7 @@
     "dev": "yarn nodemon",
     "build": "yarn babel src/ --out-dir dist/ --extensions \".ts\" --source-maps inline --quiet --copy-files",
     "clean": "yarn rimraf dist",
-    "start": "ts-node dist/main.js",
+    "start": "ts-node src/main.ts",
     "docker:build": "docker-compose up -d --build",
     "docker:logs": "docker-compose logs -f"
   },
