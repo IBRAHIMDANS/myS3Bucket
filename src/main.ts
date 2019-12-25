@@ -32,11 +32,15 @@ createConnection('default')
         app.use(cacheControl({ noCache: true }));
         app.use(bodyParser.urlencoded({ extended: true }));
         app.get('/', (req: Express.Request, res: Express.Response) =>
-            res.status(200).end(` go to url route https://${hostname()}/api`),
+            res
+                .status(200)
+                .end(` go to url route https://mys3-bucket.herokuapp.com/api`),
         );
         app.use('/api', route);
         server = app.listen(port, () => {
-            console.log(`server started at https://${hostname()}:${port}/api`);
+            console.log(
+                `server started at https://mys3-bucket.herokuapp.com/api`,
+            );
         });
     })
     .catch(error => console.log(error));
