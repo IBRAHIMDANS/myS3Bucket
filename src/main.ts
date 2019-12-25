@@ -34,12 +34,12 @@ createConnection('default')
         app.get('/', (req: Express.Request, res: Express.Response) =>
             res
                 .status(200)
-                .end(` go to url route https://mys3-bucket.herokuapp.com/api`),
+                .end(` go to url route ${process.env.HOST}/api`),
         );
         app.use('/api', route);
         server = app.listen(port, () => {
             console.log(
-                `server started at https://mys3-bucket.herokuapp.com/api`,
+                `server started at ${process.env.HOST}/api`,
             );
         });
     })
