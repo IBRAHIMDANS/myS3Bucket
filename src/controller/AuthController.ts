@@ -75,10 +75,7 @@ export class AuthController {
             });
     };
 
-    static ChangePassword = async (
-        request: Request,
-        response: Response,
-    ): Promise<void> => {
+    static ChangePassword = async (request: Request): Promise<void> => {
         console.log(request.params.id);
     };
 }

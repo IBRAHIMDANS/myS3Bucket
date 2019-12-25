@@ -10,7 +10,6 @@ import * as http from 'http';
 import passport from 'passport';
 import * as fs from 'fs';
 import helmet from 'helmet';
-import { hostname } from 'os';
 
 config(); // add dotEnv
 
@@ -32,15 +31,11 @@ createConnection('default')
         app.use(cacheControl({ noCache: true }));
         app.use(bodyParser.urlencoded({ extended: true }));
         app.get('/', (req: Express.Request, res: Express.Response) =>
-            res
-                .status(200)
-                .end(` go to url route ${process.env.HOST}/api`),
+            res.status(200).end(` go to url route ${process.env.HOST}/api`),
         );
         app.use('/api', route);
         server = app.listen(port, () => {
-            console.log(
-                `server started at ${process.env.HOST}/api`,
-            );
+            console.log(`server started at ${process.env.HOST}/api`);
         });
     })
     .catch(error => console.log(error));

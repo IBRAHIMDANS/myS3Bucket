@@ -9,15 +9,15 @@ export default async (
     request: Request,
     response: Response,
     next: NextFunction,
-) => {
+): Promise<void> => {
     const user = (request as RequestCustom).user;
     const bucketRepository: Repository<Bucket> = getRepository(Bucket);
     const storage: StorageEngine = multer.diskStorage({
         destination: async (
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             req: any,
             file: Express.Multer.File,
-            cb,
-            // : (error: Error | null, destination: string) => void
+            cb: (error: Error | null, destination: string) => void,
         ): Promise<void> => {
             await bucketRepository
                 .findOneOrFail({ where: { name: req.query.path } })

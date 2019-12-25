@@ -5,7 +5,6 @@ import {
     CreateDateColumn,
     Entity,
     EventSubscriber,
-    ManyToMany,
     OneToMany,
     PrimaryGeneratedColumn,
     UpdateDateColumn,

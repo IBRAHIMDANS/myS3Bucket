@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as rimraf from 'rimraf';
 import mkdirp from 'mkdirp';
 
-export function createDirectoryAction(dir: string) {
+export function createDirectoryAction(dir: string): void {
     if (fs.existsSync(`${process.env.MYS3Storage}`)) {
         if (!fs.existsSync(`${process.env.MYS3Storage}/${dir}`)) {
             return mkdirp(`${process.env.MYS3Storage}/${dir}`, err => {
@@ -12,7 +12,7 @@ export function createDirectoryAction(dir: string) {
     }
 }
 
-export function removeDirectoryAction(dir: string) {
+export function removeDirectoryAction(dir: string): void {
     if (fs.existsSync(`${process.env.MYS3Storage}`)) {
         if (fs.existsSync(`${process.env.MYS3Storage}/${dir}`)) {
             return rimraf.sync(`${process.env.MYS3Storage}/${dir}`);
@@ -41,20 +41,6 @@ export async function renameDirectoryAction(
     });
 }
 
-// export function createBlobAction(id: string, bucket?: string) {
-//     if (fs.existsSync(`${process.env.MYS3Storage}`)) {
-//         if (!fs.existsSync(`${process.env.MYS3Storage}/${id}`)) {
-//             return fs.mkdirSync(`${process.env.MYS3Storage}/${id}`);
-//         }
-//     }
-// }
-// export function renameBlobAction(id: string, bucket?: string) {
-//     if (fs.existsSync(`${process.env.MYS3Storage}`)) {
-//         if (!fs.existsSync(`${process.env.MYS3Storage}/${id}`)) {
-//             return fs.mkdirSync(`${process.env.MYS3Storage}/${id}`);
-//         }
-//     }
-// }
 export async function removeBlobAction(
     id: string, // user uuid
     blob: string, // blob path for example ./dataStorage/22...
