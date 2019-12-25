@@ -10,8 +10,9 @@ import * as http from 'http';
 import passport from 'passport';
 import * as fs from 'fs';
 import helmet from 'helmet';
+import { hostname } from 'os';
 
-config(); // add dotenv
+config(); // add dotEnv
 
 const app: Express.Express = Express();
 export let server: http.Server;
@@ -20,8 +21,6 @@ export const port = process.env.PORT || 8082;
 const MYS3DATADIR = `${process.env.MYS3Storage}`;
 
 if (!fs.existsSync(MYS3DATADIR)) {
-    console.log('hello');
-    console.log(MYS3DATADIR);
     fs.mkdirSync(MYS3DATADIR);
 }
 createConnection('default')
@@ -33,11 +32,11 @@ createConnection('default')
         app.use(cacheControl({ noCache: true }));
         app.use(bodyParser.urlencoded({ extended: true }));
         app.get('/', (req: Express.Request, res: Express.Response) =>
-            res.status(200).end(' go to url route /api'),
+            res.status(200).end(` go to url route https://${hostname()}/api`),
         );
         app.use('/api', route);
         server = app.listen(port, () => {
-            console.log(`server started at http://localhost:${port}/api`);
+            console.log(`server started at https://${hostname()}:${port}/api`);
         });
     })
     .catch(error => console.log(error));

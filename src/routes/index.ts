@@ -5,6 +5,7 @@ import auth from './authRoutes';
 import bucket from './bucketRoutes';
 import blob from './blobRoutes';
 import { UserController } from '../controller/UserController';
+import { hostname } from 'os';
 
 const api = Router();
 
@@ -17,7 +18,7 @@ api.get('/', (req: Express.Request, res: Express.Response) => {
                 {
                     name: 'login',
                     method: 'Get',
-                    url: 'http://localhost:8080/api/auth/login',
+                    url: `https://${hostname()}/api/auth/login`,
                     protected: 'No',
                 },
                 {
