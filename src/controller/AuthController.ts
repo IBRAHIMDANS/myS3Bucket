@@ -56,7 +56,7 @@ export class AuthController {
                     'Modification de votre mot de passe',
                     `
 <p>Hello ${user.nickname}, pour modifier votre mot de passe veuiller cliquer sur le lien </p>
-<a type="button" href="http://localhost:4200/api/auth/changePassword/${token}">Click  </a>
+<a type="button" href="http://localhost:4200/changePassword?token=${token}">Click  </a>
  `,
                 )
                     .then(() => {
