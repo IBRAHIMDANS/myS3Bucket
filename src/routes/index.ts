@@ -16,7 +16,7 @@ api.get('/', (req: Express.Request, res: Express.Response) => {
             Auth: [
                 {
                     name: 'login',
-                    method: 'Get',
+                    method: 'Post',
                     url: `${process.env.HOST}/api/auth/login`,
                     protected: 'No',
                 },

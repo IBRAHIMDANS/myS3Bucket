@@ -32,7 +32,7 @@ export class AuthController {
                     config.jwtSecret,
                     { expiresIn: '1h' },
                 );
-                return response.json({ meta: token }).status(200);
+                return response.json({ meta: { token } }).status(200);
             },
         )(request, response);
     };

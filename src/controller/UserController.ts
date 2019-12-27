@@ -7,7 +7,10 @@ import { RequestCustom } from '../interfaces/Request';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
 import config from '../config/config';
-import { createDirectoryAction, removeDirectoryAction, } from '../lib/FileSystem';
+import {
+    createDirectoryAction,
+    removeDirectoryAction,
+} from '../lib/FileSystem';
 
 export class UserController {
     private static userRepository: Repository<User>;
