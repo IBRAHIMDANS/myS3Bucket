@@ -7,10 +7,7 @@ import { RequestCustom } from '../interfaces/Request';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
 import config from '../config/config';
-import {
-    createDirectoryAction,
-    removeDirectoryAction,
-} from '../lib/FileSystem';
+import { createDirectoryAction, removeDirectoryAction, } from '../lib/FileSystem';
 
 export class UserController {
     private static userRepository: Repository<User>;
@@ -74,7 +71,7 @@ export class UserController {
                     `<p>Hello ${user.nickname} bienvenue sur mys3</p>`,
                 )
                     .then(() => {
-                        return response.json({ meta: token }).status(200);
+                        return response.json({ meta: { token } }).status(200);
                     })
                     .catch((err: Error) => {
                         return response.json({ err }).status(500);
@@ -160,7 +157,7 @@ export class UserController {
                         config.jwtSecret,
                         { expiresIn: '1h' },
                     );
-                    return response.status(200).json({ meta: token });
+                    return response.status(200).json({ meta: { token } });
                 })
                 .catch((err: Error) => {
                     return response.status(500).json(err);
