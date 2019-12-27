@@ -44,7 +44,7 @@ export class AuthController {
         let { email } = request.body;
         email = toLower(email);
         return await getRepository(User)
-            .findOneOrFail({ email })
+            .findOneOrFail({ where: { email } })
             .then(async (user: User) => {
                 const token = jwt.sign(
                     { uuid: user.uuid, email: user.email },
