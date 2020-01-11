@@ -53,9 +53,9 @@ export class AuthController {
                 );
                 return await sendMail(
                     user,
-                    'Modification de votre mot de passe',
+                    'Changing your password',
                     `
-<p>Hello ${user.nickname}, pour modifier votre mot de passe veuiller cliquer sur le lien </p>
+<p>Hello ${user.nickname}, to change your password please click on the link </p>
 <a type="button" href="http://localhost:4200/#/changePassword?token=${token}">Click  </a>
  `,
                 )
