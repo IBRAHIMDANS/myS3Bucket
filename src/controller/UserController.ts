@@ -7,10 +7,8 @@ import { RequestCustom } from '../interfaces/Request';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
 import config from '../config/config';
-import {
-    createDirectoryAction,
-    removeDirectoryAction,
-} from '../lib/FileSystem';
+import { createDirectoryAction, removeDirectoryAction, } from '../lib/FileSystem';
+import { Bucket } from '../entity/Bucket';
 
 export class UserController {
     private static userRepository: Repository<User>;
@@ -37,8 +35,12 @@ export class UserController {
     ): Promise<Response> => {
         const userRepository: Repository<User> = getRepository(User);
         return await userRepository
-            .findOne(request.params.id)
+            .findOne({
+                where: { uuid: request.params.id },
+                relations: ['buckets'],
+            })
             .then(result => {
+                console.log(result);
                 return response.json(result).status(200);
             })
             .catch(error => {
@@ -68,16 +70,31 @@ export class UserController {
             .save(user)
             .then(async () => {
                 createDirectoryAction(`${user.uuid}`);
-                return await sendMail(
-                    user,
-                    'Bienvenue',
-                    `<p>Hello ${user.nickname} bienvenue sur mys3</p>`,
-                )
-                    .then(() => {
-                        return response.json({ meta: { token } }).status(200);
+                const bucket = new Bucket();
+                bucket.name = user.uuid;
+                bucket.user = user;
+                return await getRepository(Bucket)
+                    .save(bucket)
+                    .then(async () => {
+                        return await sendMail(
+                            user,
+                            'Welcome',
+                            `<p>Hello ${user.nickname} welcome to  myS3</p>`,
+                        )
+                            .then(() => {
+                                return response
+                                    .json({ meta: { token } })
+                                    .status(200);
+                            })
+                            .catch((err: Error) => {
+                                return response.json({ err }).status(500);
+                            });
                     })
-                    .catch((err: Error) => {
-                        return response.json({ err }).status(500);
+                    .catch(error => {
+                        return response.status(500).json({
+                            error: request.statusCode,
+                            message: error.message,
+                        });
                     });
             })
             .catch(error => {
@@ -168,7 +185,7 @@ export class UserController {
         } else {
             return response
                 .status(500)
-                .json({ error: "password don't match with passwordConfirm" });
+                .json({ error: 'password don\'t match with passwordConfirm' });
         }
     };
 

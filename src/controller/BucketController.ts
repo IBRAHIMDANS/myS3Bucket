@@ -24,7 +24,10 @@ export class BucketController {
     ): Promise<Response> => {
         const userRepository: Repository<Bucket> = getRepository(Bucket);
         return await userRepository
-            .find({ where: { user: request.user } })
+            .find({
+                where: { user: request.user },
+                relations: ['blobs'],
+            })
             .then(result => response.json(result).status(200))
             .catch(error => response.status(500).json(error));
     };

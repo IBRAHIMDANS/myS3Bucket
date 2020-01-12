@@ -19,17 +19,29 @@ export default async (
             file: Express.Multer.File,
             cb: (error: Error | null, destination: string) => void,
         ): Promise<void> => {
-            await bucketRepository
-                .findOneOrFail({ where: { name: req.query.path } })
-                .then(result => {
-                    cb(
-                        null,
-                        `${process.env.MYS3Storage}/${user.uuid}/${result.name}`,
-                    );
-                })
-                .catch((err: Error) => {
-                    cb(err, `${err}`);
-                });
+            if (!req.query.path) {
+                await bucketRepository
+                    .findOneOrFail({ where: { name: req.user.uuid } })
+                    .then(result => {
+                        console.log(result);
+                        cb(null, `${process.env.MYS3Storage}/${result.name}`);
+                    })
+                    .catch((err: Error) => {
+                        cb(err, `${err}`);
+                    });
+            } else {
+                await bucketRepository
+                    .findOneOrFail({ where: { name: req.query.path } })
+                    .then(result => {
+                        cb(
+                            null,
+                            `${process.env.MYS3Storage}/${user.uuid}/${result.name}`,
+                        );
+                    })
+                    .catch((err: Error) => {
+                        cb(err, `${err}`);
+                    });
+            }
         },
         filename: async (
             req: Request,

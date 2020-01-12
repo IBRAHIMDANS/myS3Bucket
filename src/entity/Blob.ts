@@ -36,7 +36,7 @@ export class Blob extends BaseEntity {
 
     @ManyToOne(
         () => Bucket,
-        bucket => bucket.id,
+        bucket => bucket.blobs,
         {
             cascade: true,
             eager: true,

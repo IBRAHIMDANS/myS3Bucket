@@ -75,6 +75,9 @@ export class BlobController {
     ): Promise<Response> => {
         const blobRepository: Repository<Blob> = getRepository(Blob);
         const { filename, path, size } = request.file;
+        if (!request.query.path) {
+            request.query.path = (request as RequestCustom).user.uuid;
+        }
         return await getRepository(Bucket)
             .findOneOrFail({ where: { name: request.query.path } })
             .then(async result => {

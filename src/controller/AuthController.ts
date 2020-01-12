@@ -30,7 +30,7 @@ export class AuthController {
                 const token = jwt.sign(
                     { uuid, email, nickname },
                     config.jwtSecret,
-                    { expiresIn: '1h' },
+                    { expiresIn: '2h' },
                 );
                 return response.json({ meta: { token } }).status(200);
             },
@@ -49,7 +49,7 @@ export class AuthController {
                 const token = jwt.sign(
                     { uuid: user.uuid, email: user.email },
                     config.jwtSecret,
-                    { expiresIn: '1h' },
+                    { expiresIn: '2h' },
                 );
                 return await sendMail(
                     user,
