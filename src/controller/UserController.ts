@@ -7,7 +7,10 @@ import { RequestCustom } from '../interfaces/Request';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
 import config from '../config/config';
-import { createDirectoryAction, removeDirectoryAction, } from '../lib/FileSystem';
+import {
+    createDirectoryAction,
+    removeDirectoryAction,
+} from '../lib/FileSystem';
 import { Bucket } from '../entity/Bucket';
 
 export class UserController {
@@ -40,7 +43,6 @@ export class UserController {
                 relations: ['buckets'],
             })
             .then(result => {
-                console.log(result);
                 return response.json(result).status(200);
             })
             .catch(error => {
@@ -185,7 +187,7 @@ export class UserController {
         } else {
             return response
                 .status(500)
-                .json({ error: 'password don\'t match with passwordConfirm' });
+                .json({ error: "password don't match with passwordConfirm" });
         }
     };
 
