@@ -37,9 +37,10 @@ export class BucketController {
         response: Response,
     ): Promise<Response> => {
         const bucketRepository: Repository<Bucket> = getRepository(Bucket);
-        const { name } = request.body;
+        const { name, parentId } = request.body;
         const bucket = new Bucket();
         bucket.name = name;
+        bucket.parentId = parentId;
         bucket.user = (request as RequestCustom).user;
         createDirectoryAction(
             `${(request as RequestCustom).user.uuid}/${bucket.name}`,

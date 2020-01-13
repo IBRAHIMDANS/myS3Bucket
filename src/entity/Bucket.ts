@@ -21,6 +21,10 @@ export class Bucket extends BaseEntity {
     @IsString()
     name!: string;
 
+    @Column('text', { nullable: true })
+    @IsString()
+    parentId?: string;
+
     @ManyToOne(
         () => User,
         user => user.uuid,
