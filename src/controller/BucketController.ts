@@ -45,6 +45,7 @@ export class BucketController {
                     parentId: request.params.id,
                     user: request.user,
                 },
+                relations: ['blobs'],
             })
             .then(result => response.json(result).status(200))
             .catch(error => response.status(500).json(error));
