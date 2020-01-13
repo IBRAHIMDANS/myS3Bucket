@@ -77,7 +77,9 @@ export class BlobController {
         const { filename, path, size } = request.file;
         if (!request.query.path) {
             return await getRepository(Bucket)
-                .findOneOrFail({ where: { name: (request as RequestCustom).user.uuid } })
+                .findOneOrFail({
+                    where: { name: (request as RequestCustom).user.uuid },
+                })
                 .then(async result => {
                     const blob = new Blob();
                     blob.name = filename;
@@ -136,7 +138,6 @@ export class BlobController {
                     return response.json('bucket not found').status(500);
                 });
         }
-
     };
     // Delete Blob
     static delete = async (
