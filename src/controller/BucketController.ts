@@ -42,7 +42,7 @@ export class BucketController {
         return await bucketRepository
             .findOneOrFail({
                 where: {
-                    id: request.params.id,
+                    parentId: request.params.id,
                     user: request.user,
                 },
             })
