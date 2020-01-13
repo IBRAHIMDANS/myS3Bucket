@@ -10,7 +10,6 @@ export default async (
     response: Response,
     next: NextFunction,
 ): Promise<void> => {
-    console.log(request);
     const user = (request as RequestCustom).user;
     const bucketRepository: Repository<Bucket> = getRepository(Bucket);
     const storage: StorageEngine = multer.diskStorage({
@@ -24,19 +23,23 @@ export default async (
                 await bucketRepository
                     .findOneOrFail({ where: { name: req.user.uuid } })
                     .then(result => {
-                        console.log(result);
                         cb(null, `${process.env.MYS3Storage}/${result.name}`);
                     })
                     .catch((err: Error) => {
                         cb(err, `${err}`);
                     });
             } else {
+                console.log()
                 await bucketRepository
-                    .findOneOrFail({ where: { name: req.query.path } })
-                    .then(result => {
+                    .findOneOrFail({
+                        where: {
+                            name: req.query.path.split('/').pop(),
+                        },
+                    })
+                    .then(() => {
                         cb(
                             null,
-                            `${process.env.MYS3Storage}/${user.uuid}/${result.name}`,
+                            `${process.env.MYS3Storage}/${user.uuid}/${req.query.path}`,
                         );
                     })
                     .catch((err: Error) => {

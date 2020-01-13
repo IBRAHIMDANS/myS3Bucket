@@ -45,6 +45,10 @@ export class User extends BaseEntity {
     @OneToMany(
         () => Bucket,
         bucket => bucket.user,
+        {
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+        },
     )
     buckets!: Bucket[];
 

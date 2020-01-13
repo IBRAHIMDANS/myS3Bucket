@@ -1,12 +1,4 @@
-import {
-    BaseEntity,
-    Column,
-    Entity,
-    JoinTable,
-    ManyToOne,
-    OneToMany,
-    PrimaryGeneratedColumn,
-} from 'typeorm';
+import { BaseEntity, Column, Entity, JoinTable, ManyToOne, OneToMany, PrimaryGeneratedColumn, } from 'typeorm';
 import { IsString, Length } from 'class-validator';
 import { User } from './User';
 import { Blob } from './Blob';
@@ -25,6 +17,10 @@ export class Bucket extends BaseEntity {
     @IsString()
     parentId?: string;
 
+    @Column('text', { nullable: true })
+    @IsString()
+    path?: string;
+
     @ManyToOne(
         () => User,
         user => user.uuid,
@@ -41,6 +37,10 @@ export class Bucket extends BaseEntity {
     @OneToMany(
         () => Blob,
         blob => blob.bucket,
+        {
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+        },
     )
     blobs!: Blob[];
 }

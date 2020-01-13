@@ -73,19 +73,30 @@ export class BucketController {
         bucket.name = name;
         bucket.parentId = parentId;
         bucket.user = (request as RequestCustom).user;
+        await bucketRepository
+            .find({ where: { id: parentId } })
+            .then(async i => {
+                i.map(item => {
+                    if (item.name === bucket.user.uuid) {
+                        bucket.path = name;
+                    } else {
+                        bucket.path = `${item.path}/${name}`;
+                    }
+                });
+            });
         createDirectoryAction(
-            `${(request as RequestCustom).user.uuid}/${bucket.name}`,
-        );
-        const token = jwt.sign(
-            {
-                name,
-                user: bucket.user,
-            },
-            config.jwtSecret,
+            `${(request as RequestCustom).user.uuid}/${bucket.path}`,
         );
         return await bucketRepository
             .save(bucket)
             .then(() => {
+                const token = jwt.sign(
+                    {
+                        name,
+                        user: bucket.user,
+                    },
+                    config.jwtSecret,
+                );
                 return response.status(200).json({ bucket, meta: { token } });
             })
             .catch(err => {
@@ -136,15 +147,30 @@ export class BucketController {
         return await bucketRepository
             .findOneOrFail(request.params.id)
             .then(async bucket => {
-                removeDirectoryAction(`${bucket.user.uuid}/${bucket.name}`);
                 return await bucketRepository
-                    .remove(bucket)
-                    .then(result => {
-                        console.log(result);
-                        return response.status(200).json(bucket);
+                    .find({
+                        where: {
+                            parentId: bucket.id,
+                        },
                     })
-                    .catch(error => {
-                        return response.status(500).json(error);
+                    .then(async i => {
+                        return await bucketRepository
+                            .remove(i)
+                            .then(async () => {
+                                return await bucketRepository
+                                    .remove(bucket)
+                                    .then(() => {
+                                        removeDirectoryAction(
+                                            `${bucket.user.uuid}/${bucket.name}`,
+                                        );
+                                        return response
+                                            .status(200)
+                                            .json(bucket);
+                                    })
+                                    .catch(error => {
+                                        return response.status(500).json(error);
+                                    });
+                            });
                     });
             })
             .catch(error => {
