@@ -27,6 +27,7 @@ export class BucketController {
             .find({
                 where: {
                     user: request.user,
+                    parentId: request.params.id,
                 },
                 relations: ['blobs'],
             })
@@ -40,14 +41,25 @@ export class BucketController {
     ): Promise<Response> => {
         const bucketRepository: Repository<Bucket> = getRepository(Bucket);
         return await bucketRepository
-            .findOneOrFail({
+            .find({
                 where: {
                     parentId: request.params.id,
                     user: request.user,
                 },
                 relations: ['blobs'],
             })
-            .then(result => response.json(result).status(200))
+            .then(async result => {
+                return await bucketRepository
+                    .find({
+                        where: {
+                            id: request.params.id,
+                        },
+                        relations: ['blobs'],
+                    })
+                    .then(root => {
+                        return response.json(root.concat(result)).status(200);
+                    });
+            })
             .catch(error => response.status(500).json(error));
     };
     // Get Post bucket

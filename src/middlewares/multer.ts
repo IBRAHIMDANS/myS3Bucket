@@ -10,6 +10,7 @@ export default async (
     response: Response,
     next: NextFunction,
 ): Promise<void> => {
+    console.log(request);
     const user = (request as RequestCustom).user;
     const bucketRepository: Repository<Bucket> = getRepository(Bucket);
     const storage: StorageEngine = multer.diskStorage({
