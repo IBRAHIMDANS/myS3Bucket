@@ -37,9 +37,9 @@ export class BucketController {
         return await bucketRepository
             .findOneOrFail({ where: 
                 { 
-                    id: request.params.id ,
-                    user: request.user 
-                } 
+                id: request.params.id ,
+                user: request.user 
+            } 
             })
             .then(result => response.json(result).status(200))
             .catch(error => response.status(500).json(error));
