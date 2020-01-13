@@ -29,7 +29,7 @@ export default async (
                         cb(err, `${err}`);
                     });
             } else {
-                console.log()
+                console.log();
                 await bucketRepository
                     .findOneOrFail({
                         where: {

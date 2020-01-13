@@ -76,37 +76,67 @@ export class BlobController {
         const blobRepository: Repository<Blob> = getRepository(Blob);
         const { filename, path, size } = request.file;
         if (!request.query.path) {
-            request.query.path = (request as RequestCustom).user.uuid;
+            return await getRepository(Bucket)
+                .findOneOrFail({ where: { name: (request as RequestCustom).user.uuid } })
+                .then(async result => {
+                    const blob = new Blob();
+                    blob.name = filename;
+                    blob.path = path;
+                    blob.size = String(size);
+                    blob.bucket = result;
+                    const token = jwt.sign(
+                        {
+                            name: blob.name,
+                            user: request.user,
+                        },
+                        config.jwtSecret,
+                    );
+                    return await blobRepository
+                        .save(blob)
+                        .then(() => {
+                            return response
+                                .status(200)
+                                .json({ blob, meta: { token } });
+                        })
+                        .catch(err => {
+                            return response.status(500).json({ err });
+                        });
+                })
+                .catch(() => {
+                    return response.json('bucket not found').status(500);
+                });
+        } else {
+            return await getRepository(Bucket)
+                .findOneOrFail({ where: { path: request.query.path } })
+                .then(async result => {
+                    const blob = new Blob();
+                    blob.name = filename;
+                    blob.path = path;
+                    blob.size = String(size);
+                    blob.bucket = result;
+                    const token = jwt.sign(
+                        {
+                            name: blob.name,
+                            user: request.user,
+                        },
+                        config.jwtSecret,
+                    );
+                    return await blobRepository
+                        .save(blob)
+                        .then(() => {
+                            return response
+                                .status(200)
+                                .json({ blob, meta: { token } });
+                        })
+                        .catch(err => {
+                            return response.status(500).json({ err });
+                        });
+                })
+                .catch(() => {
+                    return response.json('bucket not found').status(500);
+                });
         }
-        return await getRepository(Bucket)
-            .findOneOrFail({ where: { name: request.query.path } })
-            .then(async result => {
-                const blob = new Blob();
-                blob.name = filename;
-                blob.path = path;
-                blob.size = String(size);
-                blob.bucket = result;
-                const token = jwt.sign(
-                    {
-                        name: blob.name,
-                        user: request.user,
-                    },
-                    config.jwtSecret,
-                );
-                return await blobRepository
-                    .save(blob)
-                    .then(() => {
-                        return response
-                            .status(200)
-                            .json({ blob, meta: { token } });
-                    })
-                    .catch(err => {
-                        return response.status(500).json({ err });
-                    });
-            })
-            .catch(() => {
-                return response.json('bucket not found').status(500);
-            });
+
     };
     // Delete Blob
     static delete = async (
