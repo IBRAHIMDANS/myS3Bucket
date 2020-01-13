@@ -22,9 +22,25 @@ export class BucketController {
         request: Request,
         response: Response,
     ): Promise<Response> => {
-        const userRepository: Repository<Bucket> = getRepository(Bucket);
-        return await userRepository
+        const bucketRepository: Repository<Bucket> = getRepository(Bucket);
+        return await bucketRepository
             .find({ where: { user: request.user } })
+            .then(result => response.json(result).status(200))
+            .catch(error => response.status(500).json(error));
+    };
+    // Get ALL bucket by user
+    static one = async (
+        request: Request,
+        response: Response,
+    ): Promise<Response> => {
+        const bucketRepository: Repository<Bucket> = getRepository(Bucket);
+        return await bucketRepository
+            .findOneOrFail({ where: 
+                { 
+                    id: request.params.id ,
+                    user: request.user 
+                } 
+            })
             .then(result => response.json(result).status(200))
             .catch(error => response.status(500).json(error));
     };
