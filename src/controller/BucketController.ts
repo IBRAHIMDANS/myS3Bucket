@@ -27,14 +27,13 @@ export class BucketController {
             .find({
                 where: {
                     user: request.user,
-                    name: (request as RequestCustom).user.uuid,
                 },
                 relations: ['blobs'],
             })
             .then(result => response.json(result).status(200))
             .catch(error => response.status(500).json(error));
     };
-    // Get ALL bucket by user
+    // Get one bucket by user
     static one = async (
         request: Request,
         response: Response,

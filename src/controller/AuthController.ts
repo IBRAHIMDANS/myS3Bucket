@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 import { sendMail } from '../lib/Mailer';
 import config from '../config/config';
 import { toLower } from 'lodash';
+import { Bucket } from '../entity/Bucket';
 
 export class AuthController {
     private static userRepository: Repository<User>;
@@ -27,12 +28,18 @@ export class AuthController {
                     return response.status(400).json({ error: err });
                 }
                 const { uuid, email, nickname } = await user;
-                const token = jwt.sign(
-                    { uuid, email, nickname },
-                    config.jwtSecret,
-                    { expiresIn: '2h' },
-                );
-                return response.json({ meta: { token } }).status(200);
+                await getRepository(Bucket)
+                    .findOneOrFail({
+                        where: { name: uuid, parentId: null, user },
+                    })
+                    .then(i => {
+                        const token = jwt.sign(
+                            { uuid, email, nickname, parentIdBucket: i.id },
+                            config.jwtSecret,
+                            { expiresIn: '2h' },
+                        );
+                        return response.json({ meta: { token } }).status(200);
+                    });
             },
         )(request, response);
     };
