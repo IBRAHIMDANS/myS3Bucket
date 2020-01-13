@@ -25,7 +25,10 @@ export class BucketController {
         const userRepository: Repository<Bucket> = getRepository(Bucket);
         return await userRepository
             .find({
-                where: { user: request.user },
+                where: {
+                    user: request.user,
+                    name: (request as RequestCustom).user.uuid,
+                },
                 relations: ['blobs'],
             })
             .then(result => response.json(result).status(200))
