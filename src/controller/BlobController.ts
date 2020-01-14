@@ -34,7 +34,7 @@ export class BlobController {
                     },
                     config.jwtSecret,
                 );
-              //  console.log(blob);
+                //  console.log(blob);
                 return response.status(200).download(`${blob.path}`);
             })
             .catch((err: Error) => {
