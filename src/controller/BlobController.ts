@@ -20,14 +20,13 @@ export class BlobController {
     static retrieve = async (
         request: Request,
         response: Response,
-    ): Promise<Response> => {
+    ): Promise<Response | void> => {
         const blobRepository: Repository<Blob> = getRepository(Blob);
         return await blobRepository
             .findOneOrFail({
                 where: { id: request.params.id },
             })
             .then(async blob => {
-                console.log(blob);
                 const token = jwt.sign(
                     {
                         blob,
@@ -35,7 +34,8 @@ export class BlobController {
                     },
                     config.jwtSecret,
                 );
-                return response.status(200).json({ meta: { token } });
+              //  console.log(blob);
+                return response.status(200).download(`${blob.path}`);
             })
             .catch((err: Error) => {
                 return response.status(404).json(err);
