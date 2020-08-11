@@ -19,12 +19,7 @@
     "docker:build": "docker-compose up -d --build",
     "docker:logs": "docker-compose logs -f"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn prettier --write \"src/*.ts\" \"src/**/*.ts*\"",
-      "pre-push": "yarn lint && yarn test"
-    }
-  },
+
   "engines": {
     "node": ">=12.7.x",
     "npm" : ">=6.13.4",
