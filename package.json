@@ -30,7 +30,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "bcryptjs": "^2.4.3",
-    "class-validator": "^0.11.0",
+    "class-validator": "0.13.1",
     "mkdirp": "^0.5.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
