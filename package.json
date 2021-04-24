@@ -65,7 +65,7 @@
     "@babel/preset-typescript": "^7.7.7",
     "@mhirba/eslint-config-base": "^1.4.2",
     "@types/bcryptjs": "^2.4.2",
-    "@types/body-parser": "^1.17.1",
+    "@types/body-parser": "1.19.0",
     "@types/cors": "^2.8.6",
     "@types/helmet": "^0.0.45",
     "@types/mkdirp": "^0.5.2",
