@@ -73,7 +73,7 @@
     "@types/passport-local": "^1.0.33",
     "@types/rimraf": "^2.0.3",
     "@types/chai": "^4.2.4",
-    "@types/express": "^4.17.2",
+    "@types/express": "4.17.11",
     "@types/dotenv": "^8.2.0",
     "@types/jest": "^24.0.20",
     "@types/jsonwebtoken": "^8.3.5",
