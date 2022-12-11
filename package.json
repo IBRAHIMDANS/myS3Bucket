@@ -42,7 +42,7 @@
     "nodemailer": "^6.3.1",
     "passport": "^0.4.0",
     "reflect-metadata": "^0.1.13",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-cache-controller": "^1.1.0",
     "express-validator": "^6.2.0",
     "rimraf": "^3.0.0",
